@@ -1,0 +1,18 @@
+<template>
+<article class="employees">
+    <Panel :title='"Funcionários"'></Panel>
+</article>
+</template>
+
+<script>
+import Panel from '@/components/Panel'
+export default {
+    components: {
+        Panel
+    }
+}
+</script>
+
+<style lang='sccs' scoped>
+
+</style>

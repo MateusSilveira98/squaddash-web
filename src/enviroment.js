@@ -1,9 +1,9 @@
-const getEnv = () => {
+const url = () => {
     if (window.location.href.match('local*')) {
-      return 'http://localhost:3000'
+        return 'http://localhost:3000'
     } else {
-      return 'http://localhost:3000'
+        return 'http://localhost:3000'
     }
-  }
-  
-  module.exports = getEnv()
+}
+
+export default { url }

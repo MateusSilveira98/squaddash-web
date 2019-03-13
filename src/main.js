@@ -6,7 +6,7 @@ import '@/registerServiceWorker'
 import axios from 'axios'
 import enviroment from './enviroment'
 
-axios.defaults.baseURL = enviroment.getEnv();
+axios.defaults.baseURL = enviroment.url
 Vue.config.productionTip = false
 
 new Vue({
