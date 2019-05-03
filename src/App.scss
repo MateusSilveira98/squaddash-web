@@ -1,8 +1,35 @@
 @import "~bulma/bulma";
 @import "~animate.css/animate.css";
 @import "./assets/icons/css/font-awesome.css";
+
+$blue: #2f80ed;
+$blue-hover: #438cee;
+$green: #01bca2;
+$green-dark: #2e3a3a;
+
 * {
   margin: 0;
   padding: 0;
   text-decoration: none;
+}
+
+.is-primary {
+  color: $blue;
+  &.button {
+    background: $blue !important;
+    color: white !important;
+    &:hover {
+      background: $blue-hover !important;
+    }
+  }
+}
+
+input.input, textarea.textarea {
+  &::placeholder {
+    font-weight: bold;
+  } 
+  &:focus {
+    outline: $green;
+    border-color: $green;
+  }
 }

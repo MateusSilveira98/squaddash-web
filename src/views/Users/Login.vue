@@ -2,15 +2,10 @@
   <article class="login">
     <section class="section">
       <div class="container">
-        <h2 class="title">Login</h2>
+        <img class="image" :src="logo" alt="logo">
         <div class="card">
           <header>
-            <div class="card-image">
-              <figure class="image is-128x128">
-                <img :src="'../../assets/logo.svg'" alt="logo">
-              </figure>
-            </div>
-            <p class="subtitle has-text-centered">Squad Dash</p>
+            <p class="subtitle has-text-centered">Login</p>
           </header>
           <div class="card-content">
             <form @submit.prevent="login(user)">
@@ -58,17 +53,17 @@
                   >{{ errors.first('senha') }}</span>
                 </div>
               </div>
-              <div class="field">
+              <div class="field links">
                 <p class="control">
-                  <router-link :to="`usuarios/cadastro`" class="is-primary">Cadastrar-se</router-link>
+                  <router-link :to="`usuarios/cadastro`" class="is-primary">Criar conta</router-link>
                 </p>
                 <p class="control">
-                  <a class="is-primary">Esqueci minha senha</a>
+                  <a class="is-primary">Esqueceu a senha?</a>
                 </p>
               </div>
               <div class="field">
                 <p class="control">
-                  <input type="submit" value="Entrar" class="button is-fullwidth">
+                  <input type="submit" value="Entrar" class="button is-primary is-fullwidth">
                 </p>
               </div>
             </form>
@@ -80,10 +75,12 @@
 </template>
 
 <script>
+import logo from "@/assets/logo.svg";
 export default {
   data() {
     return {
-      user: {}
+      user: {},
+      logo: logo
     };
   },
   computed: {
@@ -94,13 +91,10 @@ export default {
   methods: {
     async login(user) {
       const isValid = await this.$validator.validate();
-      console.log('login');
       if (isValid) {
         await this.$store.dispatch("login", user);
-        console.log('valid');
         if (this.success) {
           this.$store.dispatch("getLoggedUser");
-          console.log('success');
           this.$router.push("/");
         }
       }
@@ -108,3 +102,28 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.card {
+  border-radius: 4px;
+  border: 1px solid #01bca2;
+  max-width: 94%;
+  margin: 0 auto;
+  header {
+    padding: 1em;
+  }
+  .links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+@media all and (max-width: 320px) {
+  .card {
+    .links {
+      display: block;
+      width: 100%;
+    }
+  }
+}
+</style>
