@@ -5,12 +5,6 @@ Vue.filter('brDate', value => {
   moment.locale('pt-br')
   return moment(value).format('L')
 })
-Vue.filter('uppercase', value => {
-  return value.toUpperCase()
-})
-Vue.filter('lowercase', value => {
-  return value.toLowerCase()
-})
 Vue.filter('boolFormat', (value, caseTrue, caseFalse) => {
   return value ? caseTrue : caseFalse
 })

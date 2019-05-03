@@ -1,68 +1,40 @@
 import services from './services'
+import axios from 'axios';
+import Utils from '@/utils/index';
 export default {
-  async uploadImageToCloudinary({ commit }, file) {
-    commit('LOADING')
+  async uploadImageToStorage({ commit }, file) {
+    commit('LOADING');
     try {
-      let response = await services.uploadImageToCloudinary(file)
+      let response = await services.uploadImageToStorage(file);
       if (response.data) {
-        let image = response.data
-        commit('LOADING')
-        commit('IMAGE_UPLOADED_SUCCESS', { image })
+        let image = response.data;
+        commit('LOADING');
+        commit('IMAGE_UPLOADED_SUCCESS', { image });
+        axios.defaults.headers.common['Authorization'] = `Bearer ${Utils.localstorage.get('token')}`;
       }
     } catch (error) {
-      commit('LOADING')
-      console.log(error.request)
+      commit('LOADING');
+      console.log(error);
     }
   },
-  setHeader({ commit }) {
-    commit('SET_HEADER')
-  },
-  async create({ commit }, payload) {
+  async create({ commit }, {url, payload}) {
     commit('LOADING')
     payload.status = true
-    let response = await service.create(payload)
-    if (response.data.id) {
-      commit('LOADING')
-      commit('SUCCESS_MESSAGE')
-    } else {
-      commit('LOADING')
-      commit('FAIL_MESSAGE', { response })
-    }
+    let response = await service.post(url, payload)
+    Utils.callback(commit, response);
   },
-  async edit({ commit }, payload) {
+  async edit({ commit }, {url, payload}) {
     commit('LOADING')
-    let response = await service.edit(payload)
-    if (response.data.id) {
-      commit('LOADING')
-      commit('SUCCESS_MESSAGE')
-    } else {
-      commit('LOADING')
-      commit('FAIL_MESSAGE', { response })
-    }
+    let response = await service.edit(url, payload)
+    Utils.callback(commit, response);
   },
-  async delete({ commit }, payload) {
-    commit('LOADING')
-    let response = await service.delete(payload)
-    if (response.data.id) {
-      commit('LOADING')
-      commit('SUCCESS_MESSAGE')
-    } else {
-      commit('LOADING')
-      commit('FAIL_MESSAGE', { response })
-    }
+  async getAll({ commit }, url) {
+    let response = await service.getAll(url);
+    let payload = response.data;
+    commit('GET_ALL_SUCCESS', { payload });
   },
-  async getAll({ commit }) {
-    let response = await service.getAll()
-    let payload = response.data
-    commit('GET_ALL_SUCCESS', { payload })
-  },
-  async getById({ commit }, id) {
-    let response = await service.getById(id)
-    let payload = response.data
-    if (payload.id) {
-      commit('GET_BY_ID_SUCCESS', { payload })
-    } else {
-      commit('FAIL_MESSAGE', { response })
-    }
+  async getById({ commit }, {url, id}) {
+    let response = await service.getById(url, id);
+    commit('GET_BY_ID_SUCCESS', { payload });
   }
 }

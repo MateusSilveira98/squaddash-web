@@ -1,9 +1,10 @@
 export default {
   loading: false,
-  image: '',
-  showHeader: true,
-  all: [],
-  selected: {},
+  toNotify: false,
+  success: false,
+  image: {},
   message: '',
-  messageClass: ''
+  messageClass: '',
+  selected: {},
+  all: []
 }

@@ -9,17 +9,18 @@ const router = new Router({
   mode: 'history',
   routes
 })
-// router.beforeEach((to, from, next) => {
-//   if (to.path === '/usuarios/cadastro') {
-//     next()
-//   } else if (Utils.localstorage.get('token')) {
-//     axios.defaults.headers.common['Authorization'] = `Bearer ${Utils.localstorage.get('token')}`
-//     next()
-//   } else {
-//     if (to.path !== '/login') {
-//       next({ path: '/login' })
-//     }
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  const token = Utils.localstorage.get('token');
+  if (to.path === '/usuarios/cadastro') {
+    next()
+  } else if (token) {
+    axios.defaults.headers.common['Authorization'] = token;
+    next()
+  } else {
+    if (to.path !== '/login') {
+      next({ path: '/login' })
+    }
+    next()
+  }
+})
 export default router

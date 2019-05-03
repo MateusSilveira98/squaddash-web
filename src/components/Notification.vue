@@ -1,9 +1,9 @@
 <template>
-    <div class='notification' :class="['notification', 'animated', type ? `is-${type}` : '']" v-if='show'>
-      <button class='delete' @click='closeNotification()'></button>
-      <h1 class='title'>{{title}}</h1>
-      {{message}}
-    </div>
+  <div :class="['notification', 'fadeInRight', 'animated', type ? `is-${type}` : '']" v-if="show">
+    <button class="delete" @click="closeNotification()"></button>
+    <h1 class="title">{{title}}</h1>
+    {{message}}
+  </div>
 </template>
 
 <script>
@@ -12,41 +12,37 @@ export default {
     type: String,
     duration: Number,
     message: String,
-    title: {type: String, default: ''},
-    open: {type: Boolean, default: false},
+    title: { type: String, default: "" },
+    open: { type: Boolean, default: false },
     openPermanently: false
   },
-  data () {
+  data() {
     return {
       show: false
-    }
+    };
   },
   methods: {
-    closeNotification () {
-      this.show = false
+    closeNotification() {
+      this.show = false;
+      this.$emit("close", false);
     },
-    openNotification () {
+    openNotification() {
       if (this.openPermanently) {
-        this.show = true
+        this.show = true;
       } else {
-        this.show = true
-        setTimeout(() => this.closeNotification(), this.duration)
+        this.show = true;
+        setTimeout(() => this.closeNotification(), this.duration);
       }
     }
   },
   watch: {
-    open (newValue) {
+    open(newValue) {
       if (newValue) {
-        this.openNotification()
+        this.openNotification();
       }
     }
-  },
-  mounted () {
-    if (this.open) {
-      this.openNotification()
-    }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

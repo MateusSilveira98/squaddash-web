@@ -1,28 +1,31 @@
 export default {
   'LOADING'(state) {
-    state.loading = !state.loading
+    state.loading = !state.loading;
+  },
+  'SUCCESS'(state) {
+    state.success = true;
+    setTimeout(() => {
+      state.success = false;
+    }, 500);
+  },
+  'PUSH_NOTIFICATION'(state) {
+    state.toNotify = true;
+    setTimeout(() => {
+      state.toNotify = false;
+    }, 500);
   },
   'IMAGE_UPLOADED_SUCCESS'(state, { image }) {
-    state.image = image
+    state.image = image.data;
   },
   'IMAGE_UPLOADED_FAIL'(state) {
-    state.image = 'Falha ao fazer o upload'
+    state.image = 'Falha ao fazer o upload';
   },
-  'SET_HEADER'(state) {
-    state.showHeader = !state.showHeader
+  'SUCCESS_MESSAGE'(state, { response }) {
+    state.message = response.message;
+    state.messageClass = 'success';
   },
-  'SUCCESS_MESSAGE' (state, {message}) {
-    state.message = message
-    state.messageClass = 'success'
-  },
-  'FAIL_MESSAGE' (state, { response }) {
-    state.message = response.message
-    state.messageClass = 'danger'
-  },
-  'GET_ALL_SUCCESS' (state, { payload }) {
-    state.all = payload
-  },
-  'GET_BY_ID_SUCCESS' (state, { payload }) {
-    state.selected = payload
+  'FAIL_MESSAGE'(state, { response }) {
+    state.message = response.message;
+    state.messageClass = 'danger';
   }
 }
