@@ -18,23 +18,37 @@
           </div>
         </div>
       </div>
-      <template v-for="item in items">
+      <template v-for="(item, i) in items">
         <div class="panel" :key="item.id">
           <div class="item">
             <div class="reference">
               <figure class="image flex align-items center" v-if="item.image">
                 <img :src="item.image" :alt="item.name">
               </figure>
-              <span class="text">{{item.name}}</span>
+              <p class="text">{{item.name}}</p>
             </div>
             <div class="icons">
-              <a>
-                <i class="fa fa-eye" aria-hidden="true"></i>
+              <a
+                :class="findTableItemByIndex(i) ? 'is-active' : ''"
+                :title="`vizualização ${item.name}`"
+              >
+                <i
+                  class="fa fa-eye"
+                  aria-hidden="true"
+                  @click="handleTable(i, 'close')"
+                  v-if="findTableItemByIndex(i)"
+                ></i>
+                <i
+                  class="fa fa-eye-slash"
+                  aria-hidden="true"
+                  @click="handleTable(i, 'open')"
+                  v-else
+                ></i>
               </a>
               <router-link :to="`${config.editPath}/${item.id}`">
                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
               </router-link>
-              <a>
+              <a @click='handleStatus(item)' :class="item.status ? 'is-active' : ''">
                 <i
                   class="fa"
                   :class="item.status ? 'fa-toggle-on' : 'fa-toggle-off'"
@@ -42,12 +56,15 @@
                 ></i>
               </a>
               <a>
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                <i @click='handleModal(item)' class="fa fa-trash-o" aria-hidden="true"></i>
               </a>
             </div>
           </div>
-          <div class="wrap-tables">
-            <div class="is-desktop">
+          <div class="wrap-tables" v-if="findTableItemByIndex(i)">
+            <div
+              class="is-desktop"
+              :class="showTable.length > 0 && showTable[showTable.indexOf(findTableItemByIndex(i))].type == 'open' ? 'fadeInDown animated' : 'fadeOutUp animated'"
+            >
               <table class="table">
                 <thead>
                   <th v-for="col in config.columns" :key="col">{{col}}</th>
@@ -65,7 +82,10 @@
                 </tbody>
               </table>
             </div>
-            <div class="is-mobile">
+            <div
+              class="is-mobile"
+              :class="showTable.length > 0 && showTable[showTable.indexOf(findTableItemByIndex(i))].type == 'open' ? 'fadeInDown animated' : 'fadeOutUp animated'"
+            >
               <template v-for="(col, index) in config.columns">
                 <div class="row" :key="col">
                   <div class="header">
@@ -94,15 +114,71 @@
           </div>
         </div>
       </template>
+      <ConfirmModal
+        @send="deleteEntity"
+        @close="handleModal"
+        :text="modalConfig.text"
+        :showModal="modalConfig.show"
+        :item="modalConfig.item"
+        :title="`Excluir ${config.title}`"
+      ></ConfirmModal>
     </div>
   </section>
 </template>
 
 <script>
+import ConfirmModal from "@/components/ConfirmModal";
 export default {
+  components: {
+    ConfirmModal
+  },
   props: {
     config: Object,
     items: { type: Array, default: () => [] }
+  },
+  data() {
+    return {
+      showTable: [],
+      modalConfig: {
+        show: false,
+        item: {},
+        text: ''
+      }
+    };
+  },
+  methods: {
+    handleStatus(item) {
+      item.status = !item.status;
+      this.$emit('edit', item);
+    },
+    deleteEntity(item) {
+      this.$emit('delete', item);
+    },
+    handleModal(item) {
+      this.modalConfig.show = !this.modalConfig.show;
+      if(this.modalConfig.show) {
+        this.modalConfig.item = item;
+        this.modalConfig.text = `deseja excluir ${item.name} ?`;
+      }
+      else {
+        this.modalConfig.text = '';
+        this.modalConfig.item = {};
+      }
+    },
+    findTableItemByIndex(index) {
+      return this.showTable.find(item => item.index == index);
+    },
+    handleTable(index, type) {
+      let tableItemName = this.findTableItemByIndex(index);
+      if (!tableItemName) this.showTable.push({ index, type });
+      else {
+        tableItemName.type = "close";
+        setTimeout(() => {
+          tableItemName.type = "open";
+          this.showTable.splice(this.showTable.indexOf(tableItemName), 1);
+        }, 480);
+      }
+    }
   }
 };
 </script>
@@ -177,18 +253,25 @@ export default {
 }
 
 @media (max-width: 480px) {
+  .reference {
+    display: block !important;
+    .text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 12em;
+    }
+  }
   .header.flex.align-items.center.justify-content.between {
     display: inline-block;
     width: 100%;
     a.button.is-secondary.is-outilined,
-    .field.has-addons .control:first-child{
+    .field.has-addons .control:first-child {
       width: 100%;
-
     }
     a.button.is-secondary.is-outilined {
       margin-bottom: 1em;
     }
-
   }
   .is-desktop {
     display: none !important;

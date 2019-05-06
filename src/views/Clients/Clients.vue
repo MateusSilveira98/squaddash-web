@@ -15,7 +15,7 @@ export default {
       clients: [
         {
           id: 1,
-          name: "Spread",
+          name: "Spread Geral",
           email: "vinicius.mesquita@spread.com.br",
           image:
             "https://static.wixstatic.com/media/540efb_3c5ead0633cf10e5023bad942aaf9869.png",
@@ -26,7 +26,7 @@ export default {
         },
         {
           id: 2,
-          name: "Spread",
+          name: "Spread Tecnologia",
           email: "vinicius.mesquita@spread.com.br",
           image:
             "https://static.wixstatic.com/media/540efb_3c5ead0633cf10e5023bad942aaf9869.png",
@@ -37,7 +37,7 @@ export default {
         },
         {
           id: 3,
-          name: "Spread",
+          name: "Spread Telecomunicações",
           email: "vinicius.mesquita@spread.com.br",
           image:
             "https://static.wixstatic.com/media/540efb_3c5ead0633cf10e5023bad942aaf9869.png",
