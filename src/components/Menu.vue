@@ -11,6 +11,7 @@
         aria-label="menu"
         aria-expanded="false"
         data-target="navbarBasic"
+				@click="showNav = !showNav" :class="{ 'is-active': showNav }"
       >
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -18,7 +19,7 @@
       </a>
     </div>
 
-    <div id="navbarBasic" class="navbar-menu">
+    <div id="navbarBasic" class="navbar-menu" :class="{ 'is-active': showNav }">
       <div class="navbar-start">
         <router-link
           :to="`/`"
@@ -79,7 +80,8 @@ export default {
   },
   data() {
     return {
-      logo: logo
+			logo: logo,
+			showNav: false
     };
 	},
 	methods: {
