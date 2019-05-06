@@ -1,4 +1,5 @@
 import axios from 'axios'
+import config from '@/config.json'
 export default {
   uploadImageToStorage(file) {
     const storage = config.IMG_STORAGE;
@@ -18,7 +19,7 @@ export default {
     return axios.post(url, payload)
   },
   edit(url, payload) {
-    return axios.put(`${url}/${payload.id}`, payload)
+    return axios.put(`${url}`, payload)
   },
   getAll(url) {
     return axios.get(url)

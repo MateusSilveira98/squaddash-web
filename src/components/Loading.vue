@@ -17,8 +17,8 @@ export default {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: #90bc428c;
-  z-index: 9;
+  background: #2e3a3ac2;
+  z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;

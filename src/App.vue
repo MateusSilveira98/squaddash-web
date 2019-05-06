@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- <Menu v-if='user && user.name' :user='user'></Menu> -->
-    <!-- <Loading :showLoading="loading"></Loading> -->
+    <Menu v-if='user && user.name' :user='user'></Menu>
+    <Loading :showLoading="loading"></Loading>
     <Notification
       @close="showNotification = $event"
       :open="showNotification"
@@ -13,14 +13,14 @@
   </div>
 </template>
 <script>
-// import Loading from "@/components/Loading";
+import Loading from "@/components/Loading";
 import Notification from "@/components/Notification";
-// import Menu from "@/components/Menu";
+import Menu from "@/components/Menu";
 export default {
   components: {
-    // Loading,
-    Notification
-    // Menu
+    Loading,
+    Notification,
+    Menu
   },
   computed: {
     loading() {

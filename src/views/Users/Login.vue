@@ -57,9 +57,9 @@
                 <p class="control">
                   <router-link :to="`usuarios/cadastro`" class="is-primary">Criar conta</router-link>
                 </p>
-                <p class="control">
+                <!-- <p class="control">
                   <a class="is-primary">Esqueceu a senha?</a>
-                </p>
+                </p> -->
               </div>
               <div class="field">
                 <p class="control">
@@ -95,7 +95,7 @@ export default {
         await this.$store.dispatch("login", user);
         if (this.success) {
           this.$store.dispatch("getLoggedUser");
-          this.$router.push("/");
+          this.$router.replace("/");
         }
       }
     }

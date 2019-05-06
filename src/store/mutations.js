@@ -27,5 +27,11 @@ export default {
   'FAIL_MESSAGE'(state, { response }) {
     state.message = response.message;
     state.messageClass = 'danger';
+  },
+  'GET_ALL_SUCCESS'(state, {payload}) {
+    state.all = payload;
+  },
+  'GET_BY_ID_SUCCESS'(state, {payload}) {
+    state.selected = payload;
   }
 }

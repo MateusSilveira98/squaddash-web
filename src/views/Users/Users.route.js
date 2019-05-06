@@ -12,7 +12,11 @@ let route = [
     component: Users
   },
   {
-    path: '/usuarios/cadastro',
+    path: '/usuarios/criar',
+    component: UserRegister
+  },
+  {
+    path: '/usuarios/criar/:type',
     component: UserRegister
   },
   {

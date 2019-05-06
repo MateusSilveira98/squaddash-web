@@ -5,6 +5,7 @@
 $blue: #2f80ed;
 $blue-hover: #438cee;
 $green: #01bca2;
+$green-hover: #1ac2ab;
 $green-dark: #2e3a3a;
 
 * {
@@ -13,17 +14,47 @@ $green-dark: #2e3a3a;
   text-decoration: none;
 }
 
+// Colors
 .is-primary {
   color: $blue;
   &.button {
     background: $blue !important;
     color: white !important;
+    &.is-outilined {
+      background: white !important;
+      border-color: $blue !important;
+      color: $blue !important;
+      &:hover {
+        color: white !important;
+        background: $blue !important;
+      }
+    }
     &:hover {
       background: $blue-hover !important;
     }
   }
 }
+.is-secondary {
+  color: $green;
+  &.button {
+    background: $green !important;
+    color: white !important;
+    &.is-outilined {
+      background: white !important;
+      border-color: $green !important;
+      color: $green !important;
+      &:hover {
+        color: white !important;
+        background: $green !important;
+      }
+    }
+    &:hover {
+      background: $green-hover !important;
+    }
+  }
+}
 
+// Elements Colors
 input.input, textarea.textarea {
   &::placeholder {
     font-weight: bold;
@@ -31,5 +62,37 @@ input.input, textarea.textarea {
   &:focus {
     outline: $green;
     border-color: $green;
+  }
+}
+
+
+// Gambis
+
+.flex {
+  display: flex;
+}
+.align-items {
+  &.center {
+    align-items: center;
+  }
+  &.bottom {
+    align-items: flex-end;
+  }
+  &.top {
+    align-items: flex-start;
+  }
+}
+.justify-content {
+  &.between {
+    justify-content: space-between;
+  }
+  &.around {
+    justify-content: space-around;
+  }
+  &.right {
+    justify-content: flex-end;
+  }
+  &.left {
+    justify-content: flex-start;
   }
 }

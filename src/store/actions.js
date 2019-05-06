@@ -1,11 +1,11 @@
-import services from './services'
+import service from './services'
 import axios from 'axios';
 import Utils from '@/utils/index';
 export default {
   async uploadImageToStorage({ commit }, file) {
     commit('LOADING');
     try {
-      let response = await services.uploadImageToStorage(file);
+      let response = await service.uploadImageToStorage(file);
       if (response.data) {
         let image = response.data;
         commit('LOADING');
@@ -18,15 +18,14 @@ export default {
     }
   },
   async create({ commit }, {url, payload}) {
-    commit('LOADING')
-    payload.status = true
-    let response = await service.post(url, payload)
-    Utils.callback(commit, response);
+    commit('LOADING');
+    let response = await service.post(url, payload);
+    Utils.callback(commit, response.data);
   },
   async edit({ commit }, {url, payload}) {
-    commit('LOADING')
-    let response = await service.edit(url, payload)
-    Utils.callback(commit, response);
+    commit('LOADING');
+    let response = await service.edit(url, payload);
+    Utils.callback(commit, response.data);
   },
   async getAll({ commit }, url) {
     let response = await service.getAll(url);
@@ -35,6 +34,6 @@ export default {
   },
   async getById({ commit }, {url, id}) {
     let response = await service.getById(url, id);
-    commit('GET_BY_ID_SUCCESS', { payload });
+    commit('GET_BY_ID_SUCCESS', { payload: response.data });
   }
 }
