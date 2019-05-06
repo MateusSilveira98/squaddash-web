@@ -12,15 +12,11 @@ let route = [
     component: Users
   },
   {
-    path: '/usuarios/criar',
-    component: UserRegister
-  },
-  {
     path: '/usuarios/criar/:type',
     component: UserRegister
   },
   {
-    path: '/usuarios/editar/:id',
+    path: '/usuarios/editar/:id/:type',
     component: UserEdit
   }
 ]

@@ -55,7 +55,7 @@
               </div>
               <div class="field links">
                 <p class="control">
-                  <router-link :to="`usuarios/cadastro`" class="is-primary">Criar conta</router-link>
+                  <router-link :to="`usuarios/criar/2`" class="is-primary">Criar conta</router-link>
                 </p>
                 <!-- <p class="control">
                   <a class="is-primary">Esqueceu a senha?</a>

@@ -50,17 +50,18 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="navbar-item has-dropdown is-hoverable">
+            <img class="profile" :src="user.profile_photo">
             <a class="navbar-link">{{user.name}}</a>
 
             <div class="navbar-dropdown">
-              <router-link :to="`usuarios/editar/${user.id}`" class="navbar-item">Editar perfil</router-link>
+              <router-link :to="`usuarios/editar/${user.id}/${user.type}`" class="navbar-item">Editar perfil</router-link>
               <router-link
                 v-if="user.type == 'admin'"
                 :to="`usuarios/criar/${user.type}`"
                 class="navbar-item"
               >Usuários</router-link>
               <hr class="navbar-divider">
-              <a class="navbar-item">Sair</a>
+              <a class="navbar-item" @click='logout()'>Sair</a>
             </div>
           </div>
         </div>
@@ -71,6 +72,7 @@
 
 <script>
 import logo from "@/assets/logo.svg";
+import Utils from '@/utils/index';
 export default {
   props: {
     user: Object
@@ -79,22 +81,37 @@ export default {
     return {
       logo: logo
     };
-  }
+	},
+	methods: {
+		logout() {
+			Utils.localstorage.remove('token');
+			Utils.localstorage.remove('user');
+			window.location.reload();
+		}
+	}
 };
 </script>
 
 <style lang='scss' scoped>
 .navbar-item {
+	img {
+		max-height: 3rem;
+	}
   &.is-active,
   &:hover {
-		border-bottom: 1px solid #01BCA2!important;
-		color: #01BCA2!important;
-		background: none!important;
+    border-bottom: 1px solid #01bca2 !important;
+    color: #01bca2 !important;
+    background: none !important;
   }
 }
 .navbar-brand {
   .navbar-item {
-    border-bottom: none!important;
+    border-bottom: none !important;
   }
+}
+.profile {
+  border-radius: 105px;
+  width: 50px;
+  max-height: 50px;
 }
 </style>

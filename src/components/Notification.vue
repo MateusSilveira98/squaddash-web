@@ -1,5 +1,5 @@
 <template>
-  <div :class="['notification', 'fadeInRight', 'animated', type ? `is-${type}` : '']" v-if="show">
+  <div :class="['notification', type ? `is-${type}` : '']" v-if="show">
     <button class="delete" @click="closeNotification()"></button>
     <h1 class="title">{{title}}</h1>
     {{message}}
