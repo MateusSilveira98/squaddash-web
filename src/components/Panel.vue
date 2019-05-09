@@ -9,7 +9,12 @@
         >{{config.buttonText}}</router-link>
         <div class="field has-addons">
           <div class="control">
-            <input class="input" type="text" :placeholder="`Pesquise por ${config.title}`">
+            <input
+              @input="searchTable"
+              class="input"
+              type="text"
+              :placeholder="`Pesquise por ${config.title}`"
+            >
           </div>
           <div class="control">
             <a class="button is-secondary">
@@ -18,7 +23,7 @@
           </div>
         </div>
       </div>
-      <template v-for="(item, i) in items">
+      <template v-for="(item, i) in filteredItems">
         <div class="panel" :key="item.id">
           <div class="item">
             <div class="reference">
@@ -48,7 +53,7 @@
               <router-link :to="`${config.editPath}/${item.id}`">
                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
               </router-link>
-              <a @click='handleStatus(item)' :class="item.status ? 'is-active' : ''">
+              <a @click="handleStatus(item)" :class="item.status ? 'is-active' : ''">
                 <i
                   class="fa"
                   :class="item.status ? 'fa-toggle-on' : 'fa-toggle-off'"
@@ -56,7 +61,7 @@
                 ></i>
               </a>
               <a>
-                <i @click='handleModal(item)' class="fa fa-trash-o" aria-hidden="true"></i>
+                <i @click="handleModal(item)" class="fa fa-trash-o" aria-hidden="true"></i>
               </a>
             </div>
           </div>
@@ -114,6 +119,7 @@
           </div>
         </div>
       </template>
+      <h1 class="title" v-if='filteredItems.length == 0'>Nenhum resultado encontrado</h1>
       <ConfirmModal
         @send="deleteEntity"
         @close="handleModal"
@@ -128,6 +134,7 @@
 
 <script>
 import ConfirmModal from "@/components/ConfirmModal";
+import _ from "lodash";
 export default {
   components: {
     ConfirmModal
@@ -139,29 +146,43 @@ export default {
   data() {
     return {
       showTable: [],
+      filteredItems: [],
       modalConfig: {
         show: false,
         item: {},
-        text: ''
+        text: ""
       }
     };
   },
   methods: {
+    searchTable(event) {
+      let search = event.target.value;
+      let array = [];
+      const isBoolean = value => value && value.length ? value : value ? 'Ativado' : 'Desativado';
+      if (search && search.length >= 3) {
+        this.filteredItems.forEach(item => {
+          Object.keys(item).forEach(prop => {
+            if (isBoolean(item[prop]).toLowerCase().match(search.toLowerCase()) && !array.includes(item))
+              array.push(item);
+          });
+        });
+        this.filteredItems = _.clone(array);
+      } else this.filteredItems = this.items;
+    },
     handleStatus(item) {
       item.status = !item.status;
-      this.$emit('edit', item);
+      this.$emit("edit", item);
     },
     deleteEntity(item) {
-      this.$emit('delete', item);
+      this.$emit("delete", item);
     },
     handleModal(item) {
       this.modalConfig.show = !this.modalConfig.show;
-      if(this.modalConfig.show) {
+      if (this.modalConfig.show) {
         this.modalConfig.item = item;
         this.modalConfig.text = `deseja excluir ${item.name} ?`;
-      }
-      else {
-        this.modalConfig.text = '';
+      } else {
+        this.modalConfig.text = "";
         this.modalConfig.item = {};
       }
     },
@@ -179,6 +200,9 @@ export default {
         }, 480);
       }
     }
+  },
+  mounted() {
+    this.filteredItems = this.items;
   }
 };
 </script>
