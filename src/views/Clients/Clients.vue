@@ -1,52 +1,23 @@
 <template>
   <article class="clients">
-    <Panel :config="clientConfig" :items="clients"></Panel>
+    <Panel :config="clientConfig" :items="all"></Panel>
   </article>
 </template>
 
 <script>
 import Panel from "@/components/Panel";
+import _ from 'lodash';
 export default {
   components: {
     Panel
   },
+  computed: {
+    all() {
+      return this.$store.state.all
+    }
+  },
   data() {
     return {
-      clients: [
-        {
-          id: 1,
-          name: "Spread Geral",
-          email: "vinicius.mesquita@spread.com.br",
-          image:
-            "https://static.wixstatic.com/media/540efb_3c5ead0633cf10e5023bad942aaf9869.png",
-          cnpj: "43044682000147",
-          status: true,
-          deleted: false,
-          created_at: "2018-05-09 00:00:00"
-        },
-        {
-          id: 2,
-          name: "Spread Tecnologia",
-          email: "vinicius.mesquita@spread.com.br",
-          image:
-            "https://static.wixstatic.com/media/540efb_3c5ead0633cf10e5023bad942aaf9869.png",
-          cnpj: "43044682000147",
-          status: true,
-          deleted: false,
-          created_at: "2018-05-09 00:00:00"
-        },
-        {
-          id: 3,
-          name: "Spread Telecomunicações",
-          email: "vinicius.mesquita@spread.com.br",
-          image:
-            "https://static.wixstatic.com/media/540efb_3c5ead0633cf10e5023bad942aaf9869.png",
-          cnpj: "43044682000147",
-          status: true,
-          deleted: false,
-          created_at: "2018-05-09 00:00:00"
-        }
-      ],
       clientConfig: {
         title: "Clientes",
         registerPath: "/cliente/criar",
@@ -73,6 +44,9 @@ export default {
         ]
       }
     };
+  },
+  async mounted() {
+    await this.$store.dispatch('getAll', '/clients');
   }
 };
 </script>

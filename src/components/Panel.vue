@@ -83,6 +83,7 @@
                     <span v-if="prop.type == 'number'">{{item[prop.name] | brCurrency}}</span>
                     <span v-if="prop.type == 'date'">{{item[prop.name] | brDate}}</span>
                     <span v-if="prop.type == 'cnpj'">{{item[prop.name] | cnpj}}</span>
+                    <span v-if="prop.type == 'object'">{{item[prop.name].name}}</span>
                   </td>
                 </tbody>
               </table>
@@ -153,6 +154,11 @@ export default {
         text: ""
       }
     };
+  },
+  watch: {
+    items(newValue) {
+      this.filteredItems = newValue;
+    }
   },
   methods: {
     searchTable(event) {
