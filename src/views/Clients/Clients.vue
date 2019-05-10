@@ -6,7 +6,6 @@
 
 <script>
 import Panel from "@/components/Panel";
-import _ from 'lodash';
 export default {
   components: {
     Panel
