@@ -1,6 +1,6 @@
 <template>
   <article class="employees">
-    <Panel :config="employeeConfig" :items="all"></Panel>
+    <Panel :config="employeeConfig" @delete='edit' @toggle="edit" :items="all"></Panel>
   </article>
 </template>
 
@@ -13,6 +13,9 @@ export default {
   computed: {
     all() {
       return this.$store.state.all
+    },
+    success() {
+      return this.$store.state.success;
     }
   },
   data() {
@@ -52,6 +55,15 @@ export default {
         ]
       }
     };
+  },
+  methods: {
+    async edit(employee) {
+      await this.$store.dispatch("edit", {
+        payload: employee,
+        url: "/employee/edit"
+      });
+      if (this.success) await this.$store.dispatch('getAll', '/employees');
+    }
   },
   async mounted() {
     await this.$store.dispatch('getAll', '/employees');

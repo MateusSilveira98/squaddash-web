@@ -24,7 +24,7 @@
                   <input
                     class="input is-capitalize"
                     type="text"
-                    placeholder="seu nome aqui: Fulano Costa"
+                    placeholder="Nome do cliente: Empresa Exemplo"
                     v-model="client.name"
                     v-validate="'required'"
                     name="nome"

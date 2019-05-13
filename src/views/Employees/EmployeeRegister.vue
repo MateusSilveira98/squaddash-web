@@ -1,0 +1,34 @@
+<template>
+  <article class="employee-register">
+    <EmployeeForm @cancel="cancel" @save="create" :title="'Criar funcionário'"></EmployeeForm>
+  </article>
+</template>
+
+<script>
+import EmployeeForm from "./EmployeeForm";
+export default {
+  components: {
+    EmployeeForm
+  },
+  computed: {
+    success() {
+      return this.$store.state.success;
+    }
+  },
+  methods: {
+    cancel(value) {
+      this.$router.replace("/funcionarios");
+    },
+    async create(employee) {
+      await this.$store.dispatch("create", {
+        payload: employee,
+        url: "/employee/create"
+      });
+      if (this.success) this.cancel();
+    }
+  }
+};
+</script>
+
+<style>
+</style>
