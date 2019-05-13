@@ -1,6 +1,6 @@
-import Employees from './Employees'
-import EmployeeRegister from './EmployeeRegister'
-import EmployeeEdit from './EmployeeEdit'
+import Employees from './Employees';
+import EmployeeRegister from './EmployeeRegister';
+import EmployeeEdit from './EmployeeEdit';
 let route = [
   {
     path: '/funcionarios',

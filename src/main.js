@@ -6,6 +6,7 @@ import '@/filters/index';
 import config from '@/config.json';
 import '@/registerServiceWorker'
 import axios from 'axios';
+import 'vue-multiselect/dist/vue-multiselect.min.css'
 
 import VeeValidate, { Validator } from "vee-validate";
 import pt_BR from "vee-validate/dist/locale/pt_BR";
