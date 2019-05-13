@@ -21,6 +21,7 @@ const callback = (commit, response) => {
     commit('SUCCESS');
   } else {
     commit('LOADING');
+    console.log('error', response)
     commit('FAIL_MESSAGE', { response });
     commit('PUSH_NOTIFICATION');
   }

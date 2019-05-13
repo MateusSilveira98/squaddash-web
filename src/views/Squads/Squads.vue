@@ -20,24 +20,28 @@ export default {
       squadConfig: {
         title: "Squads",
         registerPath: "/squad/criar",
-        buttonText: "Criar funcionário",
+        buttonText: "Criar squad",
         editPath: "/squad/editar",
         editItemPath: "/funcionario/editar",
         columns: ["Custo", "Funcionários", "Status", "Data de criação"],
         props: [
           {
+            id: 1,
             name: "cost",
             type: "number"
           },
           {
+            id: 2,
             name: "employees",
             type: "array"
           },
           {
+            id: 3,
             name: "status",
             type: "boolean"
           },
           {
+            id: 4,
             name: "created_at",
             type: "date"
           }

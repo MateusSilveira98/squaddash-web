@@ -75,7 +75,7 @@
                   <th v-for="col in config.columns" :key="col">{{col}}</th>
                 </thead>
                 <tbody>
-                  <td v-for="prop in config.props" :key="prop.name">
+                  <td v-for="prop in config.props" :key="prop.id">
                     <span v-if="prop.type == 'string'">{{item[prop.name]}}</span>
                     <span
                       v-if="prop.type == 'boolean'"
@@ -83,9 +83,9 @@
                     <span v-if="prop.type == 'number'">{{item[prop.name] | brCurrency}}</span>
                     <span v-if="prop.type == 'date'">{{item[prop.name] | brDate}}</span>
                     <span v-if="prop.type == 'cnpj'">{{item[prop.name] | cnpj}}</span>
-                    <span v-if="prop.type == 'object'">{{item[prop.name].name}}</span>
+                    <span v-if="prop.type == 'object'">{{item[prop.name][prop.attribute]}}</span>
                     <div class="panel-box" v-if="prop.type == 'array'">
-                      <div class="badge" v-for='it in item[prop.name]' :key="it.name">
+                      <div class="badge" v-for="it in item[prop.name]" :key="it.name">
                         <span>{{it.name}}</span>
                         <i class="fa fa-times"></i>
                       </div>
@@ -121,13 +121,17 @@
                     >{{item[config.props[index].name] | cnpj}}</span>
                     <span
                       v-if="config.props[index].type == 'object'"
-                    >{{item[config.props[index].name].name}}</span>
+                    >{{item[config.props[index].name][config.props[index].attribute]}}</span>
                     <div class="panel-box" v-if="config.props[index].type == 'array'">
-                      <div class="badge" v-for='it in item[config.props[index].name]' :key="it.name">
+                      <div
+                        class="badge"
+                        v-for="it in item[config.props[index].name]"
+                        :key="it.name"
+                      >
                         <router-link :to="`${config.editItemPath}/${it.id}`">
                           <span>{{it.name}}</span>
                         </router-link>
-                        <i class="fa fa-times" @click='deleteEntityItem(it)'></i>
+                        <i class="fa fa-times" @click="deleteEntityItem(it)"></i>
                       </div>
                     </div>
                   </div>
@@ -137,7 +141,7 @@
           </div>
         </div>
       </template>
-      <h1 class="title" v-if='filteredItems.length == 0'>Nenhum resultado encontrado</h1>
+      <h1 class="title" v-if="filteredItems.length == 0">Nenhum resultado encontrado</h1>
       <ConfirmModal
         @send="deleteEntity"
         @close="handleModal"
@@ -181,11 +185,17 @@ export default {
     searchTable(event) {
       let search = event.target.value;
       let array = [];
-      const isBoolean = value => value && value.length ? value : value ? 'Ativado' : 'Desativado';
+      const isBoolean = value =>
+        value && value.length ? value : value ? "Ativado" : "Desativado";
       if (search && search.length >= 3) {
         this.filteredItems.forEach(item => {
           Object.keys(item).forEach(prop => {
-            if (isBoolean(item[prop]).toLowerCase().match(search.toLowerCase()) && !array.includes(item))
+            if (
+              isBoolean(item[prop])
+                .toLowerCase()
+                .match(search.toLowerCase()) &&
+              !array.includes(item)
+            )
               array.push(item);
           });
         });
@@ -194,13 +204,25 @@ export default {
     },
     handleStatus(item) {
       item.status = !item.status;
-      this.$emit("edit", item);
+      this.$emit("toggle", item);
     },
     deleteEntity(item) {
+      item.deleted = true;
       this.$emit("delete", item);
     },
     deleteEntityItem(item) {
-      this.$emit("deleteItem", item);
+      let filteredItem = {};
+      let found = false;
+      filteredItem = this.filteredItems.find(ft => {
+        this.config.columns.forEach((col, index) => {
+          if(this.config.props[index].type == 'array') {
+            ft[this.config.props[index].name].splice(ft[this.config.props[index].name].indexOf(item), 1);
+            found = true;
+          }
+        });
+        return found;
+      });
+      this.$emit("deleteItem", filteredItem);
     },
     handleModal(item) {
       this.modalConfig.show = !this.modalConfig.show;
@@ -244,7 +266,7 @@ $green: #01bca2;
     border-radius: 4px;
     overflow-y: scroll;
     .badge {
-      background: #E5E5E5;
+      background: #e5e5e5;
       color: $green;
       display: flex;
       justify-content: space-between;
@@ -252,7 +274,8 @@ $green: #01bca2;
       margin-bottom: 0.35em;
       width: 100%;
       align-items: center;
-      i,span {
+      i,
+      span {
         cursor: pointer;
       }
     }

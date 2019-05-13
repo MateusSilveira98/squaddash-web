@@ -25,22 +25,27 @@ export default {
         columns: ["Salário", "Regime de contratação", "Cargo", "Status", "Data de criação"],
         props: [
           {
+            id: 1,
             name: "salary",
             type: "number"
           },
           {
+            id: 2,
             name: "modality_of_contracting",
             type: "string"
           },
           {
+            id: 3,
             name: "profession",
             type: "string"
           },
           {
+            id: 4,
             name: "status",
             type: "boolean"
           },
           {
+            id: 5,
             name: "created_at",
             type: "date"
           }

@@ -10,7 +10,7 @@ export default {
         let image = response.data;
         commit('LOADING');
         commit('IMAGE_UPLOADED_SUCCESS', { image });
-        axios.defaults.headers.common['Authorization'] = `Bearer ${Utils.localstorage.get('token')}`;
+        axios.defaults.headers.common['Authorization'] = `${Utils.localstorage.get('token')}`;
       }
     } catch (error) {
       commit('LOADING');

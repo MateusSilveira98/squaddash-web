@@ -1,6 +1,6 @@
 <template>
   <article class="clients">
-    <Panel :config="clientConfig" :items="all"></Panel>
+    <Panel :config="clientConfig" @delete='edit' @toggle="edit" :items="all"></Panel>
   </article>
 </template>
 
@@ -12,7 +12,10 @@ export default {
   },
   computed: {
     all() {
-      return this.$store.state.all
+      return this.$store.state.all;
+    },
+    success() {
+      return this.$store.state.success;
     }
   },
   data() {
@@ -25,18 +28,22 @@ export default {
         columns: ["Email de contato", "CNPJ", "Status", "Data de criação"],
         props: [
           {
+            id: 1,
             name: "email",
             type: "string"
           },
           {
+            id: 2,
             name: "cnpj",
             type: "cnpj"
           },
           {
+            id: 3,
             name: "status",
             type: "boolean"
           },
           {
+            id: 4,
             name: "created_at",
             type: "date"
           }
@@ -44,8 +51,17 @@ export default {
       }
     };
   },
+  methods: {
+    async edit(client) {
+      await this.$store.dispatch("edit", {
+        payload: client,
+        url: "/client/edit"
+      });
+      if (this.success) await this.$store.dispatch("getAll", "/clients");
+    }
+  },
   async mounted() {
-    await this.$store.dispatch('getAll', '/clients');
+    await this.$store.dispatch("getAll", "/clients");
   }
 };
 </script>

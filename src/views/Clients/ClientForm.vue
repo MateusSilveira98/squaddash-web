@@ -5,12 +5,12 @@
         <div class="tile is-parent">
           <div class="tile is-child box">
             <p class="title">{{title}}</p>
-            <form @submit.prevent="save(user)">
+            <form @submit.prevent="save(client)">
               <div class="field">
-                <label class="label">Foto de perfil:</label>
+                <label class="label">Foto do cliente ou logo:</label>
                 <div class="control">
                   <PhotoUpload
-                    :src="user.image"
+                    :src="client.image"
                     @remove="handleImage"
                     @upload="uploadImage"
                     :uploadButtonText="'Selecionar'"
@@ -25,7 +25,7 @@
                     class="input is-capitalize"
                     type="text"
                     placeholder="seu nome aqui: Fulano Costa"
-                    v-model="user.name"
+                    v-model="client.name"
                     v-validate="'required'"
                     name="nome"
                   >
@@ -33,47 +33,22 @@
                 <span v-if="errors.has('nome')" class="has-text-danger">{{ errors.first('nome') }}</span>
               </div>
               <div class="field">
-                <label class="label">Email:</label>
+                <label class="label">Email de contato:</label>
                 <div class="control">
                   <input
                     class="input"
                     type="email"
                     placeholder="exemplo@ex.com"
-                    v-model="user.email"
-                    v-validate="'required|email'"
+                    v-model="client.email"
                     name="email"
                   >
                 </div>
-                <span v-if="errors.has('email')" class="has-text-danger">{{ errors.first('email') }}</span>
               </div>
               <div class="field">
-                <label class="label">Senha:</label>
+                <label class="label">CNPJ:</label>
                 <div class="control">
-                  <input
-                    class="input"
-                    type="password"
-                    placeholder="no máximo 6 caractéres"
-                    maxlength="6"
-                    v-model="user.password"
-                    v-validate=" userProp && userProp.name ? '' : 'required|min:6'"
-                    name="senha"
-                  >
+                  <TheMask class="input" :mask="['##.###.###/####-##']" v-model="client.cnpj" type="text" :masked="true" placeholder="CNPJ do cliente"></TheMask>
                 </div>
-                <span v-if="errors.has('senha')" class="has-text-danger">{{ errors.first('senha') }}</span>
-              </div>
-              <div class="field" v-if='isAdmin'>
-                <label class="label">Tipo de permissão:</label>
-                <div class="control">
-                  <label class="radio">
-                    <input type="radio" name="permissão" value="1" v-model="user.role_id">
-                    Admin
-                  </label>
-                  <label class="radio">
-                    <input type="radio" name="permissão" value="2" v-model="user.role_id">
-                    Guest
-                  </label>
-                </div>
-                <span v-if="errors.has('permissão')" class="has-text-danger">{{ errors.first('permissão') }}</span>
               </div>
               <div class="field is-grouped flex justify-content right align-items center">
                 <div class="control">
@@ -93,14 +68,15 @@
 
 <script>
 import PhotoUpload from "@/components/PhotoUpload";
+import {TheMask} from 'vue-the-mask'
 export default {
   components: {
-    PhotoUpload
+    PhotoUpload,
+    TheMask
   },
   props: {
     title: String,
-    userProp: Object,
-    isAdmin: { type: Boolean, default: false }
+    clientProp: Object
   },
   computed: {
     image() {
@@ -109,28 +85,28 @@ export default {
   },
   data() {
     return {
-      user: {}
+      client: {}
     };
   },
   watch: {
-    userProp(value) {
-      this.user = value;
+    clientProp(value) {
+      this.client = value;
     },
     image(newValue) {
-      this.user.image = newValue.url;
+      this.client.image = newValue.url;
     }
   },
   methods: {
-    async save(user) {
-      user.email = user.email.toLowerCase();
+    async save(client) {
+      client.email = client.email.toLowerCase();
       const isValid = await this.$validator.validate();
-      if (isValid) this.$emit("save", user);
+      if (isValid) this.$emit("save", client);
     },
     async uploadImage(file, imageLink) {
       await this.$store.dispatch("uploadImageToStorage", file);
     },
     handleImage(value) {
-      this.user.image = value;
+      this.client.image = value;
     },
     cancel() {
       this.$emit("cancel", true);

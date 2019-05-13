@@ -51,7 +51,7 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="navbar-item has-dropdown is-hoverable">
-            <img class="profile" :src="user.profile_photo">
+            <img class="profile" :src="user.image">
             <a class="navbar-link">{{user.name}}</a>
 
             <div class="navbar-dropdown">
