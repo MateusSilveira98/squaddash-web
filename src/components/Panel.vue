@@ -84,6 +84,12 @@
                     <span v-if="prop.type == 'date'">{{item[prop.name] | brDate}}</span>
                     <span v-if="prop.type == 'cnpj'">{{item[prop.name] | cnpj}}</span>
                     <span v-if="prop.type == 'object'">{{item[prop.name].name}}</span>
+                    <div class="panel-box" v-if="prop.type == 'array'">
+                      <div class="badge" v-for='it in item[prop.name]' :key="it.name">
+                        <span>{{it.name}}</span>
+                        <i class="fa fa-times"></i>
+                      </div>
+                    </div>
                   </td>
                 </tbody>
               </table>
@@ -113,6 +119,17 @@
                     <span
                       v-if="config.props[index].type == 'cnpj'"
                     >{{item[config.props[index].name] | cnpj}}</span>
+                    <span
+                      v-if="config.props[index].type == 'object'"
+                    >{{item[config.props[index].name].name}}</span>
+                    <div class="panel-box" v-if="config.props[index].type == 'array'">
+                      <div class="badge" v-for='it in item[config.props[index].name]' :key="it.name">
+                        <router-link :to="`${config.editItemPath}/${it.id}`">
+                          <span>{{it.name}}</span>
+                        </router-link>
+                        <i class="fa fa-times" @click='deleteEntityItem(it)'></i>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </template>
@@ -182,6 +199,9 @@ export default {
     deleteEntity(item) {
       this.$emit("delete", item);
     },
+    deleteEntityItem(item) {
+      this.$emit("deleteItem", item);
+    },
     handleModal(item) {
       this.modalConfig.show = !this.modalConfig.show;
       if (this.modalConfig.show) {
@@ -214,8 +234,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$green: #01bca2;
 .panel {
   margin: 1em 0;
+  .panel-box {
+    border: 1px solid $green;
+    height: 55px;
+    padding: 1em;
+    border-radius: 4px;
+    overflow-y: scroll;
+    .badge {
+      background: #E5E5E5;
+      color: $green;
+      display: flex;
+      justify-content: space-between;
+      padding: 0.35em;
+      margin-bottom: 0.35em;
+      width: 100%;
+      align-items: center;
+      i,span {
+        cursor: pointer;
+      }
+    }
+  }
   .reference,
   .item,
   .icons {
@@ -242,7 +283,7 @@ export default {
         margin: 0 0.15em;
         &:hover,
         &.is-active {
-          color: #01bca2;
+          color: $green;
         }
       }
     }
@@ -250,8 +291,8 @@ export default {
   .table {
     width: 100%;
     th {
-      color: #01bca2;
-      border-color: #01bca2;
+      color: $green;
+      border-color: $green;
     }
     td {
       border: none;
@@ -266,13 +307,13 @@ export default {
   .row {
     margin: 0.1em 0 0.5em;
     .header {
-      background: #01bca2;
+      background: $green;
       color: white;
       border-radius: 4px 4px 0 0;
       padding: 0.5em 1em;
     }
     .body {
-      border: 1px solid #01bca2;
+      border: 1px solid $green;
       padding: 1em;
       .description {
         width: 100%;
