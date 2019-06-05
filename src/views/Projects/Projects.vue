@@ -1,6 +1,6 @@
 <template>
   <article class="projects">
-    <Panel :config="projectConfig" :items="all"></Panel>
+    <Panel @delete="edit" @toggle="edit" :config="projectConfig" :items="all"></Panel>
   </article>
 </template>
 
@@ -12,7 +12,10 @@ export default {
   },
   computed: {
     all() {
-      return this.$store.state.all
+      return this.$store.state.all;
+    },
+    success() {
+      return this.$store.state.success;
     }
   },
   data() {
@@ -22,13 +25,21 @@ export default {
         registerPath: "/projeto/criar",
         buttonText: "Criar projeto",
         editPath: "/projeto/editar",
-        columns: ["Custo", "Saldo", "Squad", "Cliente", "Status", "Data de criação"],
+        columns: [
+          "Custo",
+          "Saldo",
+          "Squad",
+          "Cliente",
+          "Status",
+          "Data de início",
+          "Data da entrega",
+          "Andamento"
+        ],
         props: [
           {
             id: 1,
-            name: "squad",
-            type: "object",
-            attribute: "cost"
+            name: "cost",
+            type: "number"
           },
           {
             id: 2,
@@ -54,15 +65,34 @@ export default {
           },
           {
             id: 6,
-            name: "created_at",
+            name: "begin_date",
             type: "date"
+          },
+          {
+            id: 7,
+            name: "finish_date",
+            type: "date"
+          },
+          {
+            id: 8,
+            name: "dev",
+            type: "string"
           }
         ]
       }
     };
   },
+  methods: {
+    async edit(project) {
+      await this.$store.dispatch("edit", {
+        payload: project,
+        url: "/project/edit"
+      });
+      if (this.success) await this.$store.dispatch("getAll", "/projects");
+    }
+  },
   async mounted() {
-    await this.$store.dispatch('getAll', '/projects');
+    await this.$store.dispatch("getAll", "/projects");
   }
 };
 </script>

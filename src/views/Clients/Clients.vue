@@ -1,6 +1,6 @@
 <template>
   <article class="clients">
-    <Panel :config="clientConfig" @delete='edit' @toggle="edit" :items="all"></Panel>
+    <Panel :config="clientConfig" @delete="edit" @toggle="edit" :items="all"></Panel>
   </article>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <article class="squads">
-    <Panel @deleteEntity='edit' @deleteItem='edit' :config="squadConfig" :items="all"></Panel>
+    <Panel @deleteEntity='edit' @deleteItem='edit' @toggle='edit' :config="squadConfig" :items="all"></Panel>
   </article>
 </template>
 
