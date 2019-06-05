@@ -21,8 +21,8 @@
               <div class="field">
                 <label class="label">Nome:</label>
                 <div class="control">
-                  <input
-                    class="input is-capitalize"
+                  <input autocomplete="off"
+                    class="input"
                     type="text"
                     placeholder="nome do funcionário: Fulano Costa"
                     v-model="employee.name"
@@ -33,10 +33,27 @@
                 <span v-if="errors.has('nome')" class="has-text-danger">{{ errors.first('nome') }}</span>
               </div>
               <div class="field">
+                <label class="label">Email de contato:</label>
+                <div class="control">
+                  <input autocomplete="off"
+                    class="input"
+                    type="email"
+                    placeholder="exemplo@ex.com"
+                    v-model="employee.email"
+                    v-validate="'required|email'"
+                    name="email"
+                  >
+                </div>
+                <span
+                  v-if="errors.has('email')"
+                  class="has-text-danger"
+                >{{ errors.first('email') }}</span>
+              </div>
+              <div class="field">
                 <label class="label">Profissão:</label>
                 <div class="control">
-                  <input
-                    class="input is-capitalize"
+                  <input autocomplete="off"
+                    class="input"
                     type="text"
                     placeholder="profissão: Scrum Master, Full-stack, etc..."
                     v-model="employee.profession"
@@ -50,22 +67,10 @@
                 >{{ errors.first('profissão') }}</span>
               </div>
               <div class="field">
-                <label class="label">Email de contato:</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="email"
-                    placeholder="exemplo@ex.com"
-                    v-model="employee.email"
-                    name="email"
-                  >
-                </div>
-              </div>
-              <div class="field">
                 <label class="label">Regime de contratação:</label>
                 <div class="control">
                   <label class="radio">
-                    <input
+                    <input autocomplete="off"
                       v-model="employee.modality_of_contracting"
                       v-validate="'required'"
                       value="CLT"
@@ -75,7 +80,7 @@
                     CLT
                   </label>
                   <label class="radio">
-                    <input
+                    <input autocomplete="off"
                       v-model="employee.modality_of_contracting"
                       v-validate="'required'"
                       value="PJ"

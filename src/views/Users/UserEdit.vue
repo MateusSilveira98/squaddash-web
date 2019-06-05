@@ -38,7 +38,7 @@ export default {
     }
   },
   async mounted() {
-    this.isAdmin = this.$route.params.type == 'admin';
+    this.isAdmin = this.$route.params.role == 'admin';
     await this.$store.dispatch('getById', {url: '/user', id: this.$route.params.id})
   }
 };

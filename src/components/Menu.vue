@@ -55,10 +55,10 @@
             <a class="navbar-link">{{user.name}}</a>
 
             <div class="navbar-dropdown">
-              <router-link :to="`usuarios/editar/${user.id}/${user.type}`" class="navbar-item">Editar perfil</router-link>
+              <router-link :to="`usuarios/editar/${user.id}/${user.role}`" class="navbar-item">Editar perfil</router-link>
               <router-link
-                v-if="user.type == 'admin'"
-                :to="`usuarios/criar/${user.type}`"
+                v-if="user.role == 'admin'"
+                :to="`usuarios/criar/${user.role}`"
                 class="navbar-item"
               >Usuários</router-link>
               <hr class="navbar-divider">

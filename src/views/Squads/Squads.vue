@@ -1,6 +1,6 @@
 <template>
   <article class="squads">
-    <Panel :config="squadConfig" :items="all"></Panel>
+    <Panel @deleteEntity='edit' @deleteItem='edit' :config="squadConfig" :items="all"></Panel>
   </article>
 </template>
 
@@ -13,6 +13,9 @@ export default {
   computed: {
     all() {
       return this.$store.state.all
+    },
+    success() {
+      return this.$store.state.success;
     }
   },
   data() {
@@ -48,6 +51,15 @@ export default {
         ]
       }
     };
+  },
+  methods: {
+    async edit(squad) {
+      await this.$store.dispatch("edit", {
+        payload: squad,
+        url: "/squad/edit"
+      });
+      if (this.success) await this.$store.dispatch('getAll', '/squads');
+    }
   },
   async mounted() {
     await this.$store.dispatch('getAll', '/squads');

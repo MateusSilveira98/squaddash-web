@@ -14,6 +14,7 @@
                   <label class="label">Email:</label>
                   <p class="control has-icons-left has-icons-right">
                     <input
+                      autocomplete="off"
                       class="input"
                       type="email"
                       v-validate="'required|email'"
@@ -34,6 +35,7 @@
                   <label class="label">Senha:</label>
                   <p class="control has-icons-left">
                     <input
+                      autocomplete="off"
                       class="input"
                       type="password"
                       placeholder="sua senha aqui"

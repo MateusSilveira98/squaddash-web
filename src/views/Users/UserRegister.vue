@@ -30,7 +30,7 @@ export default {
     }
   },
   mounted() {
-    this.isAdmin = this.$route.params.type == 'admin';
+    this.isAdmin = this.$route.params.role == 'admin';
   }
 };
 </script>

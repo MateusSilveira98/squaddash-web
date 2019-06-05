@@ -10,9 +10,10 @@
                 <label class="label">Nome:</label>
                 <div class="control">
                   <input
-                    class="input is-capitalize"
+                    autocomplete="off"
+                    class="input"
                     type="text"
-                    placeholder="nome do funcionário: Fulano Costa"
+                    placeholder="nome do squad: Squad Somos, Noob Team, Team Inovação...."
                     v-model="squad.name"
                     v-validate="'required'"
                     name="nome"
@@ -23,7 +24,7 @@
               <div class="field">
                 <label class="label">Funcionários:</label>
                 <div class="control">
-                  <multiselect
+                  <Multiselect
                     v-model="squad.employees"
                     :options="employees"
                     :multiple="true"
@@ -37,7 +38,7 @@
                     <template slot="selection" slot-scope="{ values, search, isOpen }">
                       <span v-if="values.length && !isOpen">{{ values.length }} funcionários</span>
                     </template>
-                  </multiselect>
+                  </Multiselect>
                 </div>
               </div>
               <div class="field is-grouped flex justify-content right align-items center">

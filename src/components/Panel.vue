@@ -86,8 +86,10 @@
                     <span v-if="prop.type == 'object'">{{item[prop.name][prop.attribute]}}</span>
                     <div class="panel-box" v-if="prop.type == 'array'">
                       <div class="badge" v-for="it in item[prop.name]" :key="it.name">
-                        <span>{{it.name}}</span>
-                        <i class="fa fa-times"></i>
+                        <router-link :to="`${config.editItemPath}/${it.id}`">
+                          <span>{{it.name}}</span>
+                        </router-link>
+                        <i class="fa fa-times" @click="deleteEntityItem(it)"></i>
                       </div>
                     </div>
                   </td>
@@ -185,19 +187,13 @@ export default {
     searchTable(event) {
       let search = event.target.value;
       let array = [];
-      const isBoolean = value =>
-        value && value.length ? value : value ? "Ativado" : "Desativado";
       if (search && search.length >= 3) {
         this.filteredItems.forEach(item => {
-          Object.keys(item).forEach(prop => {
-            if (
-              isBoolean(item[prop])
-                .toLowerCase()
-                .match(search.toLowerCase()) &&
-              !array.includes(item)
-            )
-              array.push(item);
-          });
+          if (
+            !array.includes(item) &&
+            item.name.toLowerCase().match(search.toLowerCase())
+          )
+            array.push(item);
         });
         this.filteredItems = _.clone(array);
       } else this.filteredItems = this.items;
@@ -215,8 +211,11 @@ export default {
       let found = false;
       filteredItem = this.filteredItems.find(ft => {
         this.config.columns.forEach((col, index) => {
-          if(this.config.props[index].type == 'array') {
-            ft[this.config.props[index].name].splice(ft[this.config.props[index].name].indexOf(item), 1);
+          if (this.config.props[index].type == "array") {
+            ft[this.config.props[index].name].splice(
+              ft[this.config.props[index].name].indexOf(item),
+              1
+            );
             found = true;
           }
         });
@@ -276,6 +275,7 @@ $green: #01bca2;
       align-items: center;
       i,
       span {
+        color: $green;
         cursor: pointer;
       }
     }

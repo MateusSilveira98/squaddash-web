@@ -25,7 +25,7 @@ export default {
     state.messageClass = 'success';
   },
   'FAIL_MESSAGE'(state, { response }) {
-    state.message = response.message;
+    state.message = typeof response.message == 'object' ? JSON.stringify(response.message) : response.message;
     state.messageClass = 'danger';
   },
   'GET_ALL_SUCCESS'(state, {payload}) {

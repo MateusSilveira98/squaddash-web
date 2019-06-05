@@ -26,7 +26,10 @@ const callback = (commit, response) => {
     commit('PUSH_NOTIFICATION');
   }
 }
+
+const toCapitalize = (string) => string ? string.charAt(0).toUpperCase() + string.slice(1) : '';
 export default {
   localstorage,
-  callback
+  callback,
+  toCapitalize
 }
