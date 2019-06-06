@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <article>
     <Menu v-if='user && user.name' :user='user'></Menu>
     <Loading :showLoading="loading"></Loading>
     <Notification
@@ -10,7 +10,7 @@
       :message="message"
     ></Notification>
     <router-view/>
-  </div>
+  </article>
 </template>
 <script>
 import Loading from "@/components/Loading";
