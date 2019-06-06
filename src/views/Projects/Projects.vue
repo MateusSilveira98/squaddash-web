@@ -26,6 +26,7 @@ export default {
         buttonText: "Criar projeto",
         editPath: "/projeto/editar",
         columns: [
+          "Valor",
           "Custo",
           "Saldo",
           "Squad",
@@ -38,43 +39,48 @@ export default {
         props: [
           {
             id: 1,
-            name: "cost",
+            name: "gains",
             type: "number"
           },
           {
             id: 2,
-            name: "balance",
+            name: "cost",
             type: "number"
           },
           {
             id: 3,
+            name: "balance",
+            type: "number"
+          },
+          {
+            id: 4,
             name: "squad",
             type: "object",
             attribute: "name"
           },
           {
-            id: 4,
+            id: 5,
             name: "client",
             type: "object",
             attribute: "name"
           },
           {
-            id: 5,
+            id: 6,
             name: "status",
             type: "boolean"
           },
           {
-            id: 6,
+            id: 7,
             name: "begin_date",
             type: "date"
           },
           {
-            id: 7,
+            id: 8,
             name: "finish_date",
             type: "date"
           },
           {
-            id: 8,
+            id: 9,
             name: "dev",
             type: "string"
           }

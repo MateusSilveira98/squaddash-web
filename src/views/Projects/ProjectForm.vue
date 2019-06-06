@@ -77,7 +77,7 @@
                       <div class="select">
                         <select v-validate="'required'" v-model="project.client_id" name="cliente">
                           <option
-                            v-for="client in allClients"
+                            v-for="client in clients"
                             :key="client.id"
                             :value="client.id"
                           >{{client.name}}</option>
@@ -95,7 +95,7 @@
                       <div class="select">
                         <select v-validate="'required'" v-model="project.squad_id" name="squad">
                           <option
-                            v-for="squad in allSquads"
+                            v-for="squad in squads"
                             :key="squad.id"
                             :value="squad.id"
                           >{{squad.name}}</option>
@@ -150,6 +150,8 @@ export default {
   data() {
     return {
       project: {},
+      squads: [],
+      clients: [],
       moneyConfig: {
         decimal: ",",
         thousands: ".",
@@ -164,6 +166,12 @@ export default {
   watch: {
     projectProp(value) {
       this.project = value;
+    },
+    allSquads(value) {
+      this.squads = value.filter(item => item.status);
+    },
+    allClients(value) {
+      this.clients = value.filter(item => item.status);
     }
   },
   methods: {

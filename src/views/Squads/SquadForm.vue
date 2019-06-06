@@ -83,7 +83,7 @@ export default {
       this.squad = value;
     },
     all(value) {
-      this.employees = value.filter(item => !item.squad_id);
+      this.employees = value.filter(item => item.status);
     }
   },
   methods: {
