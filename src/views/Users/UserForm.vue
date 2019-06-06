@@ -65,11 +65,11 @@
                 <label class="label">Tipo de permissão:</label>
                 <div class="control">
                   <label class="radio">
-                    <input type="radio" name="permissão" value="1" v-model="user.role_id">
+                    <input type="radio" name="permissão" value="admin" v-model="user.role">
                     Admin
                   </label>
                   <label class="radio">
-                    <input type="radio" name="permissão" value="2" v-model="user.role_id">
+                    <input type="radio" name="permissão" value="guest" v-model="user.role">
                     Guest
                   </label>
                 </div>

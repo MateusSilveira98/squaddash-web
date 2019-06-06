@@ -58,7 +58,7 @@
               <router-link :to="`usuarios/editar/${user.id}/${user.role}`" class="navbar-item">Editar perfil</router-link>
               <router-link
                 v-if="user.role == 'admin'"
-                :to="`usuarios/criar/${user.role}`"
+                :to="`usuarios`"
                 class="navbar-item"
               >Usuários</router-link>
               <hr class="navbar-divider">

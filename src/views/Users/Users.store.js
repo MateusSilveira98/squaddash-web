@@ -2,14 +2,24 @@ import service from '@/store/services';
 import Utils from '@/utils/index';
 
 const state = {
-  loggedUser: {}
+  loggedUser: {},
+  all: []
 }
 const mutations = {
   'GET_USER'(state, { loggedUser }) {
     state.loggedUser = loggedUser;
+  },
+  'GET_ALL_USER'(state, { result }) {
+    state.all = result;
   }
 }
 const actions = {
+  async getAllUsers({commit}, id) {
+    commit('LOADING');
+    let response = await service.getById('/users', id);
+    commit('GET_ALL_USER', {result: response.data});
+    commit('LOADING');
+  },
   async login({ commit }, payload) {
     commit('LOADING');
     let response = await service.post('user/login', payload);
