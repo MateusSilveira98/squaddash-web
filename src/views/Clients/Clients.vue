@@ -25,17 +25,12 @@ export default {
         registerPath: "/cliente/criar",
         buttonText: "Criar cliente",
         editPath: "/cliente/editar",
-        columns: ["Email de contato", "CNPJ", "Status", "Data de criação"],
+        columns: ["Email de contato", "Status", "Data de criação"],
         props: [
           {
             id: 1,
             name: "email",
             type: "string"
-          },
-          {
-            id: 2,
-            name: "cnpj",
-            type: "cnpj"
           },
           {
             id: 3,

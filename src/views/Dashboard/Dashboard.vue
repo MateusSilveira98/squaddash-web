@@ -4,17 +4,17 @@
       <h1 class="title">Dashboard</h1>
       <div class="header">
         <div class="currency">
-          <h1 class="title">Saldo</h1>
+          <h1 class="title">Saldo de todos os projetos</h1>
           <p
             :class="report.currency.gains > report.currency.costs ? 'has-text-success' : 'has-text-danger'"
           >{{report.currency.balance | brCurrency}}</p>
         </div>
         <div class="currency">
-          <h1 class="title">Ganhos</h1>
+          <h1 class="title">Ganhos de todos os projetos</h1>
           <p class="has-text-success">{{report.currency.gains | brCurrency}}</p>
         </div>
         <div class="currency">
-          <h1 class="title">Custos</h1>
+          <h1 class="title">Custos de todos os projetos</h1>
           <p class="has-text-danger">{{report.currency.costs | brCurrency}}</p>
         </div>
       </div>

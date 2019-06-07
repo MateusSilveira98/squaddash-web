@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     cancel(value) {
-      this.$router.replace("/funcionarios");
+      this.$router.replace("/pessoas");
     },
     async create(employee) {
       await this.$store.dispatch("create", {

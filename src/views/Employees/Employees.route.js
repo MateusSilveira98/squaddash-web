@@ -3,15 +3,15 @@ import EmployeeRegister from './EmployeeRegister';
 import EmployeeEdit from './EmployeeEdit';
 let route = [
   {
-    path: '/funcionarios',
+    path: '/pessoas',
     component: Employees
   },
   {
-    path: '/funcionario/criar',
+    path: '/pessoa/criar',
     component: EmployeeRegister
   },
   {
-    path: '/funcionario/editar/:id',
+    path: '/pessoa/editar/:id',
     component: EmployeeEdit
   }
 ]

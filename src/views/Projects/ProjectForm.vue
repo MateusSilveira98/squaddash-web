@@ -26,14 +26,14 @@
                 <div class="control">
                   <Money
                     class="input"
-                    v-model="project.gains"
+                    v-model="project.revenue"
                     v-bind="moneyConfig"
-                    name="valor"
-                    placeholder="Valor do projeto: quanto o cliente pagou"
+                    name="receita"
+                    placeholder="receita do projeto"
                     v-validate="'required'"
                   ></Money>
                 </div>
-                <span v-if="errors.has('valor')" class="has-text-danger">{{ errors.first('valor') }}</span>
+                <span v-if="errors.has('receita')" class="has-text-danger">{{ errors.first('receita') }}</span>
               </div>
               <div class="field">
                 <div class="columns">
@@ -53,19 +53,19 @@
                     >{{ errors.first('Data início') }}</span>
                   </div>
                   <div class="column">
-                    <label class="label">Data de entrega:</label>
+                    <label class="label">Data de término:</label>
                     <div class="control">
                       <Datepicker
                         v-model="project.finish_date"
                         :format="'dd/MM/yyyy'"
-                        name="Data de entrega"
+                        name="Data de término"
                         :language="ptBR"
                       ></Datepicker>
                     </div>
                     <span
-                      v-if="errors.has('Data de entrega')"
+                      v-if="errors.has('Data de término')"
                       class="has-text-danger"
-                    >{{ errors.first('Data de entrega') }}</span>
+                    >{{ errors.first('Data de término') }}</span>
                   </div>
                 </div>
               </div>

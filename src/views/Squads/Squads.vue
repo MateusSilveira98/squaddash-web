@@ -25,7 +25,7 @@ export default {
         registerPath: "/squad/criar",
         buttonText: "Criar squad",
         editPath: "/squad/editar",
-        editItemPath: "/funcionario/editar",
+        editItemPath: "/pessoa/editar",
         columns: ["Custo", "Funcionários", "Status", "Data de criação"],
         props: [
           {

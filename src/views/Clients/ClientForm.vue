@@ -44,12 +44,6 @@
                   >
                 </div>
               </div>
-              <div class="field">
-                <label class="label">CNPJ:</label>
-                <div class="control">
-                  <TheMask class="input" :mask="['##.###.###/####-##']" v-model="client.cnpj" type="text" :masked="true" placeholder="CNPJ do cliente"></TheMask>
-                </div>
-              </div>
               <div class="field is-grouped flex justify-content right align-items center">
                 <div class="control">
                   <a class="button is-default" @click="cancel()">Cancelar</a>

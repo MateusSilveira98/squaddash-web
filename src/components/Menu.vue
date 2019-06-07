@@ -42,9 +42,9 @@
           :class="$route.path == '/squads' ? 'is-active' : '' "
         >Squads</router-link>
         <router-link
-          :to="`/funcionarios`"
+          :to="`/pessoas`"
           class="navbar-item"
-          :class="$route.path == '/funcionarios' ? 'is-active' : '' "
+          :class="$route.path == '/pessoas' ? 'is-active' : '' "
         >Funcionários</router-link>
       </div>
 

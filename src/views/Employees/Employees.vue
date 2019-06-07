@@ -22,9 +22,9 @@ export default {
     return {
       employeeConfig: {
         title: "Funcionários",
-        registerPath: "/funcionario/criar",
+        registerPath: "/pessoa/criar",
         buttonText: "Criar funcionário",
-        editPath: "/funcionario/editar",
+        editPath: "/pessoa/editar",
         columns: ["Salário", "Regime de contratação", "Cargo", "Status", "Data de criação"],
         props: [
           {

@@ -7,7 +7,7 @@
             <p class="title">{{title}}</p>
             <form @submit.prevent="save(employee)">
               <div class="field">
-                <label class="label">Foto do funcionário:</label>
+                <label class="label">Foto da pessoa:</label>
                 <div class="control">
                   <PhotoUpload
                     :src="employee.image"
@@ -24,7 +24,7 @@
                   <input autocomplete="off"
                     class="input"
                     type="text"
-                    placeholder="nome do funcionário: Fulano Costa"
+                    placeholder="nome da peassoa: Fulano Costa"
                     v-model="employee.name"
                     v-validate="'required'"
                     name="nome"
@@ -48,23 +48,6 @@
                   v-if="errors.has('email')"
                   class="has-text-danger"
                 >{{ errors.first('email') }}</span>
-              </div>
-              <div class="field">
-                <label class="label">Profissão:</label>
-                <div class="control">
-                  <input autocomplete="off"
-                    class="input"
-                    type="text"
-                    placeholder="profissão: Scrum Master, Full-stack, etc..."
-                    v-model="employee.profession"
-                    v-validate="'required'"
-                    name="profissão"
-                  >
-                </div>
-                <span
-                  v-if="errors.has('profissão')"
-                  class="has-text-danger"
-                >{{ errors.first('profissão') }}</span>
               </div>
               <div class="field">
                 <label class="label">Regime de contratação:</label>
@@ -96,20 +79,24 @@
                 >{{ errors.first('regime de contratação') }}</span>
               </div>
               <div class="field">
-                <label class="label">Salário:</label>
+                <label class="label">Habilidades:</label>
                 <div class="control">
-                  <Money
-                    class="input"
-                    v-model="employee.salary"
-                    v-bind="moneyConfig"
-                    name='salário'
-                    placeholder="Quanto ganha? 12000,00"
-                  ></Money>
+                  <Multiselect
+                    v-model="employee.skills"
+                    :options="skills"
+                    :multiple="true"
+                    :close-on-select="false"
+                    :clear-on-select="false"
+                    :preserve-search="true"
+                    placeholder="Selecione as habilidades"
+                    label="skill"
+                    track-by="skill"
+                  >
+                    <template slot="selection" slot-scope="{ values, search, isOpen }">
+                      <span v-if="values.length && !isOpen">{{ values.length }} habilidades</span>
+                    </template>
+                  </Multiselect>
                 </div>
-                <span
-                  v-if="errors.has('salário')"
-                  class="has-text-danger"
-                >{{ errors.first('salário') }}</span>
               </div>
               <div class="field is-grouped flex justify-content right align-items center">
                 <div class="control">
@@ -129,11 +116,12 @@
 
 <script>
 import PhotoUpload from "@/components/PhotoUpload";
-import { Money } from "v-money";
+import Multiselect from "vue-multiselect";
+
 export default {
   components: {
     PhotoUpload,
-    Money
+    Multiselect
   },
   props: {
     title: String,
@@ -142,11 +130,15 @@ export default {
   computed: {
     image() {
       return this.$store.state.image;
+    },
+    all() {
+      return this.$store.state.all;
     }
   },
   data() {
     return {
       employee: {},
+      skills: [],
       moneyConfig: {
         decimal: ",",
         thousands: ".",
@@ -163,6 +155,9 @@ export default {
     },
     image(newValue) {
       this.employee.image = newValue.url;
+    },
+    all(newValue) {
+      this.skills = newValue;
     }
   },
   methods: {
@@ -180,6 +175,9 @@ export default {
     cancel() {
       this.$emit("cancel", true);
     }
+  },
+  async mounted() {
+    await this.$store.dispatch("getAll", "/skills");
   }
 };
 </script>

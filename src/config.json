@@ -1,6 +1,6 @@
 {
   "API": {
-    "dev_url": "http://localhost:3000/"
+    "dev_url": "http://10.10.0.32:3001/"
   },
   "IMG_STORAGE": {
     "url": "https://api.imgbb.com/1/upload?key=089e35806d69a634c6b470272c0a430d"

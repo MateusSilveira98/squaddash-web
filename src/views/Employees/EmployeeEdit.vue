@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     cancel(value) {
-      this.$router.replace("/funcionarios");
+      this.$router.replace("/pessoas");
     },
     async edit(employee) {
       await this.$store.dispatch("edit", {

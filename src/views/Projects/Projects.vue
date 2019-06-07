@@ -6,6 +6,7 @@
 
 <script>
 import Panel from "@/components/Panel";
+let id = 0;
 export default {
   components: {
     Panel
@@ -26,63 +27,45 @@ export default {
         buttonText: "Criar projeto",
         editPath: "/projeto/editar",
         columns: [
-          "Valor",
-          "Custo",
-          "Saldo",
+          "Receita",
           "Squad",
           "Cliente",
           "Status",
           "Data de início",
-          "Data da entrega",
-          "Andamento"
+          "Data de término"
         ],
         props: [
           {
-            id: 1,
-            name: "gains",
+            id: id++,
+            name: "revenue",
             type: "number"
           },
           {
-            id: 2,
-            name: "cost",
-            type: "number"
-          },
-          {
-            id: 3,
-            name: "balance",
-            type: "number"
-          },
-          {
-            id: 4,
+            id: id++,
             name: "squad",
             type: "object",
             attribute: "name"
           },
           {
-            id: 5,
+            id: id++,
             name: "client",
             type: "object",
             attribute: "name"
           },
           {
-            id: 6,
+            id: id++,
             name: "status",
             type: "boolean"
           },
           {
-            id: 7,
+            id: id++,
             name: "begin_date",
             type: "date"
           },
           {
-            id: 8,
+            id: id++,
             name: "finish_date",
             type: "date"
-          },
-          {
-            id: 9,
-            name: "dev",
-            type: "string"
           }
         ]
       }
