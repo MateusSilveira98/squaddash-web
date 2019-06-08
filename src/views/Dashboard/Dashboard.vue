@@ -4,22 +4,22 @@
       <h1 class="title">Dashboard</h1>
       <div class="header">
         <div class="currency">
-          <h1 class="title">Saldo de todos os projetos</h1>
+          <h1 class="title">Saldo entre receita dos projetos e custo total dos squads no ano</h1>
           <p
             :class="report.currency.gains > report.currency.costs ? 'has-text-success' : 'has-text-danger'"
           >{{report.currency.balance | brCurrency}}</p>
         </div>
         <div class="currency">
-          <h1 class="title">Ganhos de todos os projetos</h1>
+          <h1 class="title">Receita de todos os projetos</h1>
           <p class="has-text-success">{{report.currency.gains | brCurrency}}</p>
         </div>
         <div class="currency">
-          <h1 class="title">Custos de todos os projetos</h1>
+          <h1 class="title">Custos total de todos os squads no ano</h1>
           <p class="has-text-danger">{{report.currency.costs | brCurrency}}</p>
         </div>
       </div>
       <div
-        class="panel-box"
+        class="card-box"
         v-if="report.projects.higherBalance.length > 0 || report.projects.lowerBalance.length > 0"
       >
         <h1 class="title">Projetos</h1>
@@ -39,7 +39,7 @@
         </div>
       </div>
       <div
-        class="panel-box"
+        class="card-box"
         v-if="report.squads.moreExpensive.length > 0 || report.squads.moreCheap.length > 0"
       >
         <h1 class="title">Squads</h1>
@@ -59,24 +59,24 @@
         </div>
       </div>
       <div
-        class="panel-box"
+        class="card-box"
         v-if="report.employees.online.length > 0 || report.employees.offline.length > 0"
       >
-        <h1 class="title">Funcionários</h1>
+        <h1 class="title">Pessoas</h1>
         <div class="boxes">
           <InfoBox
             v-if="report.employees.online.length > 0"
-            :label="'Funcionários ativos ou disponíveis'"
+            :label="'Pessoas disponíveis'"
             :items="report.employees.online"
           ></InfoBox>
           <InfoBox
-            :label="'Funcionários desativos ou indisponíveis'"
+            :label="'Pessoas indisponíveis'"
             :items="report.employees.offline"
             v-if="report.employees.offline.length > 0"
           ></InfoBox>
         </div>
       </div>
-      <div class="panel-box" v-if="report.clients.createdRecently.length > 0">
+      <div class="card-box" v-if="report.clients.createdRecently.length > 0">
         <h1 class="title">Clientes</h1>
         <div class="boxes">
           <InfoBox :label="'Clientes recém criados'" :items="report.clients.createdRecently"></InfoBox>
@@ -135,7 +135,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.panel-box {
+.card-box {
   margin-bottom: 2em;
   .boxes {
     display: grid;
@@ -149,16 +149,19 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  h1 {
-    margin-bottom: 0;
-  }
-  p {
-    font-weight: bold;
-    font-size: 2rem;
+  .currency {
+    h1 {
+      margin-bottom: 0;
+      font-size: 1rem;
+    }
+    p {
+      font-weight: bold;
+      font-size: 2rem;
+    }
   }
 }
 @media (max-width: 480px) {
-  .panel-box {
+  .card-box {
     .boxes {
       display: block !important;
     }
@@ -166,7 +169,7 @@ export default {
 }
 
 @media (max-width: 767px) {
-  .panel-box {
+  .card-box {
     .boxes {
       display: block !important;
     }

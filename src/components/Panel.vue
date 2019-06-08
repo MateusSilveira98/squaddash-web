@@ -79,7 +79,7 @@
                     <span v-if="prop.type == 'string'">{{item[prop.name]}}</span>
                     <span
                       v-if="prop.type == 'boolean'"
-                    >{{item[prop.name] | boolFormat('Ativado', 'Desativado')}}</span>
+                    >{{item[prop.name] | boolFormat(config.boolValueTrue, config.boolValueFalse)}}</span>
                     <span v-if="prop.type == 'number'">{{item[prop.name] | brCurrency}}</span>
                     <span v-if="prop.type == 'date'">{{item[prop.name] | brDate}}</span>
                     <span v-if="prop.type == 'cnpj'">{{item[prop.name] | cnpj}}</span>
@@ -111,7 +111,7 @@
                     >{{item[config.props[index].name]}}</span>
                     <span
                       v-if="config.props[index].type == 'boolean'"
-                    >{{config.props[index].name | boolFormat('Ativado', 'Desativado')}}</span>
+                    >{{config.props[index].name | boolFormat(config.boolValueTrue, config.boolValueFalse)}}</span>
                     <span
                       v-if="config.props[index].type == 'number'"
                     >{{item[config.props[index].name] | brCurrency}}</span>

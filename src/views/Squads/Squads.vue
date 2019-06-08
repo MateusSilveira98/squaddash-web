@@ -27,6 +27,8 @@ export default {
         editPath: "/squad/editar",
         editItemPath: "/pessoa/editar",
         columns: ["Custo", "Funcionários", "Status", "Data de criação"],
+        boolValueTrue: 'ativado',
+        boolValueFalse: 'desativado',
         props: [
           {
             id: 1,

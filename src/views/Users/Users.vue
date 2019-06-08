@@ -35,6 +35,8 @@ export default {
           "Status",
           "Data de criação"
         ],
+        boolValueTrue: 'ativado',
+        boolValueFalse: 'desativado',
         props: [
           {
             id: 1,

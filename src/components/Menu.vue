@@ -45,7 +45,7 @@
           :to="`/pessoas`"
           class="navbar-item"
           :class="$route.path == '/pessoas' ? 'is-active' : '' "
-        >Funcionários</router-link>
+        >Pessoas</router-link>
       </div>
 
       <div class="navbar-end">

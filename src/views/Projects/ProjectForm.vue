@@ -22,7 +22,7 @@
                 <span v-if="errors.has('nome')" class="has-text-danger">{{ errors.first('nome') }}</span>
               </div>
               <div class="field">
-                <label class="label">Valor:</label>
+                <label class="label">Receita:</label>
                 <div class="control">
                   <Money
                     class="input"

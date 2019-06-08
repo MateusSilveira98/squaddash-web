@@ -49,7 +49,7 @@ $green: #01bca2;
       }
       p {
         font-weight: normal;
-        width: 150px;
+        width: 200px;
       }
     }
   }

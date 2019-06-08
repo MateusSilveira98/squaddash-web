@@ -26,6 +26,8 @@ export default {
         buttonText: "Criar cliente",
         editPath: "/cliente/editar",
         columns: ["Email de contato", "Status", "Data de criação"],
+        boolValueTrue: 'ativado',
+        boolValueFalse: 'desativado',
         props: [
           {
             id: 1,

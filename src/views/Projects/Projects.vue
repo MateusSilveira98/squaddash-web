@@ -34,6 +34,8 @@ export default {
           "Data de início",
           "Data de término"
         ],
+        boolValueTrue: 'ativado',
+        boolValueFalse: 'desativado',
         props: [
           {
             id: id++,
@@ -73,6 +75,7 @@ export default {
   },
   methods: {
     async edit(project) {
+      console.log(project)
       await this.$store.dispatch("edit", {
         payload: project,
         url: "/project/edit"

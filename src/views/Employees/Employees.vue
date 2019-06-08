@@ -27,6 +27,8 @@ export default {
         buttonText: "Criar pessoa",
         editPath: "/pessoa/editar",
         columns: ["Regime de contratação", "Habilidades", "Status", "Data de criação"],
+        boolValueTrue: 'disponível',
+        boolValueFalse: 'indisponível',
         props: [
           {
             id: id++,
