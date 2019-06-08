@@ -6,6 +6,7 @@
 
 <script>
 import Panel from "@/components/Panel";
+let id = 0;
 export default {
   components: {
     Panel
@@ -21,34 +22,29 @@ export default {
   data() {
     return {
       employeeConfig: {
-        title: "Funcionários",
+        title: "Pessoas",
         registerPath: "/pessoa/criar",
-        buttonText: "Criar funcionário",
+        buttonText: "Criar pessoa",
         editPath: "/pessoa/editar",
-        columns: ["Salário", "Regime de contratação", "Cargo", "Status", "Data de criação"],
+        columns: ["Regime de contratação", "Habilidades", "Status", "Data de criação"],
         props: [
           {
-            id: 1,
-            name: "salary",
-            type: "number"
-          },
-          {
-            id: 2,
+            id: id++,
             name: "modality_of_contracting",
             type: "string"
           },
           {
-            id: 3,
-            name: "profession",
-            type: "string"
+            id: id++,
+            name: "skills",
+            type: "array"
           },
           {
-            id: 4,
+            id: id++,
             name: "status",
             type: "boolean"
           },
           {
-            id: 5,
+            id: id++,
             name: "created_at",
             type: "date"
           }

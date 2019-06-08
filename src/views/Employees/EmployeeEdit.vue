@@ -1,6 +1,6 @@
 <template>
   <article class="employee-edit">
-    <EmployeeForm @cancel="cancel" :employeeProp="selected" @save="edit" :title="'Editar funcionário'"></EmployeeForm>
+    <EmployeeForm @cancel="cancel" :employeeProp="selected" @save="edit" :title="'Editar pessoa'"></EmployeeForm>
   </article>
 </template>
 

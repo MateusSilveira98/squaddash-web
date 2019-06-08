@@ -1,6 +1,6 @@
 <template>
   <article class="employee-register">
-    <EmployeeForm @cancel="cancel" @save="create" :title="'Criar funcionário'"></EmployeeForm>
+    <EmployeeForm @cancel="cancel" @save="create" :title="'Criar pessoa'"></EmployeeForm>
   </article>
 </template>
 

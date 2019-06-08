@@ -260,7 +260,7 @@ $green: #01bca2;
   margin: 1em 0;
   .panel-box {
     border: 1px solid $green;
-    height: 55px;
+    height: 140px;
     padding: 1em;
     border-radius: 4px;
     overflow-y: scroll;

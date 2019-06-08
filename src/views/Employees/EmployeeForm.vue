@@ -89,8 +89,8 @@
                     :clear-on-select="false"
                     :preserve-search="true"
                     placeholder="Selecione as habilidades"
-                    label="skill"
-                    track-by="skill"
+                    label="name"
+                    track-by="name"
                   >
                     <template slot="selection" slot-scope="{ values, search, isOpen }">
                       <span v-if="values.length && !isOpen">{{ values.length }} habilidades</span>
