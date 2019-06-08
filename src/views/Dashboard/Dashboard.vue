@@ -2,6 +2,7 @@
   <section class="section">
     <div class="container">
       <h1 class="title">Dashboard</h1>
+      <MonthlyProjection></MonthlyProjection>
       <div class="header">
         <div class="currency">
           <h1 class="title">Saldo entre receita dos projetos e custo total dos squads no ano</h1>
@@ -88,9 +89,11 @@
 
 <script>
 import InfoBox from "@/components/InfoBox";
+import MonthlyProjection from "@/components/MonthlyProjection";
 export default {
   components: {
-    InfoBox
+    InfoBox,
+    MonthlyProjection
   },
   computed: {
     reports() {
