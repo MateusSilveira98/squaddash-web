@@ -2,61 +2,11 @@
   <section class="section">
     <div class="container">
       <h1 class="title">Dashboard</h1>
-      <MonthlyProjection></MonthlyProjection>
+      <MonthlySquadProjection @changeYear="handleYear" @delete='edit' :monthlySquads="monthSquads"></MonthlySquadProjection>
       <div class="header">
         <div class="currency">
-          <h1 class="title">Saldo entre receita dos projetos e custo total dos squads no ano</h1>
-          <p
-            :class="report.currency.gains > report.currency.costs ? 'has-text-success' : 'has-text-danger'"
-          >{{report.currency.balance | brCurrency}}</p>
-        </div>
-        <div class="currency">
-          <h1 class="title">Receita de todos os projetos</h1>
-          <p class="has-text-success">{{report.currency.gains | brCurrency}}</p>
-        </div>
-        <div class="currency">
-          <h1 class="title">Custos total de todos os squads no ano</h1>
-          <p class="has-text-danger">{{report.currency.costs | brCurrency}}</p>
-        </div>
-      </div>
-      <div
-        class="card-box"
-        v-if="report.projects.higherBalance.length > 0 || report.projects.lowerBalance.length > 0"
-      >
-        <h1 class="title">Projetos</h1>
-        <div class="boxes">
-          <InfoBox
-            :label="'Projetos com maior saldo'"
-            :items="report.projects.higherBalance"
-            :type="'balance'"
-            v-if="report.projects.higherBalance.length > 0"
-          ></InfoBox>
-          <InfoBox
-            :label="'Projetos com menor saldo'"
-            :items="report.projects.lowerBalance"
-            :type="'balance'"
-            v-if="report.projects.lowerBalance.length > 0"
-          ></InfoBox>
-        </div>
-      </div>
-      <div
-        class="card-box"
-        v-if="report.squads.moreExpensive.length > 0 || report.squads.moreCheap.length > 0"
-      >
-        <h1 class="title">Squads</h1>
-        <div class="boxes">
-          <InfoBox
-            :label="'Squads mais caros'"
-            v-if="report.squads.moreExpensive.length > 0"
-            :items="report.squads.moreExpensive"
-            :type="'cost'"
-          ></InfoBox>
-          <InfoBox
-            :label="'Squads mais baratos'"
-            v-if="report.squads.moreCheap.length > 0"
-            :items="report.squads.moreCheap"
-            :type="'cost'"
-          ></InfoBox>
+          <h1 class="title">Custos total de todos os squads no ano {{year}}</h1>
+          <p class="has-text-danger">{{costsByYear | brCurrency}}</p>
         </div>
       </div>
       <div
@@ -67,20 +17,16 @@
         <div class="boxes">
           <InfoBox
             v-if="report.employees.online.length > 0"
-            :label="'Pessoas disponíveis'"
+            :label="'Pessoas ativadas'"
             :items="report.employees.online"
+            :type="'quantity'"
           ></InfoBox>
           <InfoBox
-            :label="'Pessoas indisponíveis'"
+            :label="'Pessoas desativadas'"
             :items="report.employees.offline"
             v-if="report.employees.offline.length > 0"
+            :type="'quantity'"
           ></InfoBox>
-        </div>
-      </div>
-      <div class="card-box" v-if="report.clients.createdRecently.length > 0">
-        <h1 class="title">Clientes</h1>
-        <div class="boxes">
-          <InfoBox :label="'Clientes recém criados'" :items="report.clients.createdRecently"></InfoBox>
         </div>
       </div>
     </div>
@@ -89,50 +35,60 @@
 
 <script>
 import InfoBox from "@/components/InfoBox";
-import MonthlyProjection from "@/components/MonthlyProjection";
+import MonthlySquadProjection from "@/views/Dashboard/MonthlySquadProjection";
+import moment from 'moment';
 export default {
   components: {
     InfoBox,
-    MonthlyProjection
+    MonthlySquadProjection
   },
   computed: {
     reports() {
       return this.$store.state.Dashboard.reports;
+    },
+    all() {
+      return this.$store.state.all
+    },
+    costsByYear() {
+      return this.$store.state.Dashboard.costsByYear
     }
-  },
-  data() {
-    return {
-      report: {
-        squads: {
-          moreExpensive: [],
-          moreCheap: []
-        },
-        employees: {
-          online: [],
-          offline: []
-        },
-        clients: {
-          createdRecently: []
-        },
-        projects: {
-          higherBalance: [],
-          lowerBalance: []
-        },
-        currency: {
-          gains: 0,
-          balance: 0,
-          costs: 0
-        }
-      }
-    };
   },
   watch: {
     reports(value) {
       this.report = value;
+    },
+    all(value) {
+      this.monthSquads = value;
+    }
+  },
+  data() {
+    return {
+      year: moment().year(),
+      monthSquads: [],
+      report: {
+        employees: {
+          online: [],
+          offline: []
+        }
+      }
+    };
+  },
+  methods: {
+    async edit(monthlysquad) {
+      await this.$store.dispatch("edit", {
+        payload: monthlysquad,
+        url: "/monthlysquads/edit"
+      });
+      if (this.success) await this.$store.dispatch('getAll', '/monthlysquads');
+    },
+    handleYear(year) {
+      this.year = year;
     }
   },
   async mounted() {
     await this.$store.dispatch("getAllReports");
+    await this.$store.dispatch("getCostsByYear", this.year);
+    await this.$store.dispatch('getAll', '/monthlysquads');
   }
 };
 </script>
@@ -148,7 +104,7 @@ export default {
   }
 }
 .header {
-  margin-bottom: 2em;
+  margin: 2em 0;
   display: flex;
   justify-content: space-between;
   align-items: center;

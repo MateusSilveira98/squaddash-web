@@ -7,6 +7,7 @@
           <p>{{item.name}}</p>
           <span v-if="item.cost && type == 'cost'">{{item.cost | brCurrency}}</span>
           <span v-if="item.balance && type == 'balance'">{{item.balance | brCurrency}}</span>
+          <span v-if="item.quantity && type == 'quantity'">squads: {{item.quantity}}</span>
         </div>
       </div>
     </div>
