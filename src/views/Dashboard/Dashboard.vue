@@ -2,7 +2,7 @@
   <section class="section">
     <div class="container">
       <h1 class="title">Dashboard</h1>
-      <MonthlySquadProjection @changeYear="handleYear" @delete='edit' :monthlySquads="monthSquads"></MonthlySquadProjection>
+      <MonthlySquadProjection @changeYear="handleYear" @delete="edit" :monthlySquads="monthSquads"></MonthlySquadProjection>
       <div
         class="card-box"
         v-if="report.employees.online.length > 0 || report.employees.offline.length > 0"
@@ -36,7 +36,7 @@
 <script>
 import InfoBox from "@/components/InfoBox";
 import MonthlySquadProjection from "@/views/Dashboard/MonthlySquadProjection";
-import moment from 'moment';
+import moment from "moment";
 export default {
   components: {
     InfoBox,
@@ -47,10 +47,10 @@ export default {
       return this.$store.state.Dashboard.reports;
     },
     all() {
-      return this.$store.state.all
+      return this.$store.state.all;
     },
     costsByYear() {
-      return this.$store.state.Dashboard.costsByYear
+      return this.$store.state.Dashboard.costsByYear;
     }
   },
   watch: {
@@ -83,7 +83,7 @@ export default {
         payload: monthlysquad,
         url: "/monthlysquads/edit"
       });
-      if (this.success) await this.$store.dispatch('getAll', '/monthlysquads');
+      if (this.success) await this.$store.dispatch("getAll", "/monthlysquads");
     },
     async handleYear(year) {
       this.year = year;
@@ -93,7 +93,8 @@ export default {
   async mounted() {
     await this.$store.dispatch("getAllReports");
     await this.$store.dispatch("getCostsByYear", this.year);
-    await this.$store.dispatch('getAll', '/monthlysquads');
+    await this.$store.dispatch("getAll", "/monthlysquads");
+    this.costs = this.costsByYear;
   }
 };
 </script>
