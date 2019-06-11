@@ -4,7 +4,7 @@
       <div class="control">
         <input
           @input="search"
-          class="input width-20em"
+          class="input width"
           type="text"
           :placeholder="`Pesquise por pessoas ou squads`"
         >
@@ -46,10 +46,16 @@
               class="accordions has-text-left"
               v-if="monthSquad.squad && monthSquad.squad.employees.length > 0"
             >
-              <article class="accordion" :class="activeMonthSquads.includes(monthSquad.id) ? 'is-active': ''">
+              <article
+                class="accordion"
+                :class="activeMonthSquads.includes(monthSquad.id) ? 'is-active': ''"
+              >
                 <div class="accordion-header toggle" @click="toggleAccordion(monthSquad.id)">
                   <p>Pessoas</p>
-                  <i class="fa" :class="activeMonthSquads.includes(monthSquad.id) ? 'fa-angle-up' : 'fa-angle-down'"></i>
+                  <i
+                    class="fa"
+                    :class="activeMonthSquads.includes(monthSquad.id) ? 'fa-angle-up' : 'fa-angle-down'"
+                  ></i>
                 </div>
                 <div class="accordion-body">
                   <div class="accordion-content">
@@ -192,7 +198,7 @@ $hover: #cffff9;
       border-color: $green;
     }
   }
-  .width-20em {
+  .width {
     width: 20em;
   }
 }
@@ -200,6 +206,9 @@ $hover: #cffff9;
   .monthly-projection {
     .months {
       grid-template-columns: auto;
+    }
+    .width {
+      width: 12em;
     }
   }
 }
