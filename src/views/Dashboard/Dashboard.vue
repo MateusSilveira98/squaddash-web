@@ -3,12 +3,6 @@
     <div class="container">
       <h1 class="title">Dashboard</h1>
       <MonthlySquadProjection @changeYear="handleYear" @delete='edit' :monthlySquads="monthSquads"></MonthlySquadProjection>
-      <div class="header">
-        <div class="currency">
-          <h1 class="title">Custos total de todos os squads no ano {{year}}</h1>
-          <p class="has-text-danger">{{costsByYear | brCurrency}}</p>
-        </div>
-      </div>
       <div
         class="card-box"
         v-if="report.employees.online.length > 0 || report.employees.offline.length > 0"
@@ -27,6 +21,12 @@
             v-if="report.employees.offline.length > 0"
             :type="'quantity'"
           ></InfoBox>
+        </div>
+      </div>
+      <div class="header">
+        <div class="currency">
+          <h1 class="title">Custos total de todos os squads no ano {{year}}</h1>
+          <p class="has-text-danger">{{costs | brCurrency}}</p>
         </div>
       </div>
     </div>
@@ -59,12 +59,16 @@ export default {
     },
     all(value) {
       this.monthSquads = value;
+    },
+    costsByYear(value) {
+      this.costs = value;
     }
   },
   data() {
     return {
       year: moment().year(),
       monthSquads: [],
+      costs: 0,
       report: {
         employees: {
           online: [],
@@ -81,8 +85,9 @@ export default {
       });
       if (this.success) await this.$store.dispatch('getAll', '/monthlysquads');
     },
-    handleYear(year) {
+    async handleYear(year) {
       this.year = year;
+      await this.$store.dispatch("getCostsByYear", this.year);
     }
   },
   async mounted() {
@@ -95,7 +100,7 @@ export default {
 
 <style lang='scss' scoped>
 .card-box {
-  margin-bottom: 2em;
+  margin: 2em 0;
   .boxes {
     display: grid;
     grid-template-columns: auto auto auto;

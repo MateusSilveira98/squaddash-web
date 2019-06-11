@@ -1,4 +1,5 @@
 @import "~bulma/bulma";
+@import "../node_modules/bulma-accordion/src/sass/index.sass";
 @import "~animate.css/animate.css";
 @import "./assets/icons/css/font-awesome.css";
 
@@ -66,8 +67,6 @@ textarea.textarea {
   }
 }
 
-// Gambis
-
 // layout
 .flex {
   display: flex;
@@ -102,7 +101,29 @@ textarea.textarea {
 .is-capitalize {
   text-transform: capitalize;
 }
-
+.is-bold {
+  font-weight: bold;
+}
+// Gambis
+.accordion-content {
+  border: 1px solid;
+  border-radius: 0 0 4px 4px;
+}
+.badge {
+  background: #e5e5e5;
+  color: $green;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.35em;
+  margin-bottom: 0.35em;
+  width: 100%;
+  align-items: center;
+  i,
+  span {
+    color: $green;
+    cursor: pointer;
+  }
+}
 .vdp-datepicker {
   input {
     background-color: white;

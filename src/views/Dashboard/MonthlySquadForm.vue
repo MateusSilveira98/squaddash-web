@@ -122,6 +122,7 @@ export default {
   async mounted() {
     this.monthLabels = this.monthLabels.map(item => item.name);
     await this.$store.dispatch("getAllSquads");
+    this.monthSquad = this.monthSquadProp;
   }
 };
 </script>

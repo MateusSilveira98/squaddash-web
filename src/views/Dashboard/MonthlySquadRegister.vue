@@ -18,7 +18,9 @@ export default {
   },
   data() {
     return {
-      monthSquad: {}
+      monthSquad: {
+        cost: 0
+      }
     }
   },
   methods: {
